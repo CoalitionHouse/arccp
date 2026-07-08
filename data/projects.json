@@ -1,1 +1,21 @@
-{"supply_radius_km": 300, "factories": [], "projects": []}
+{
+  "supply_radius_km": 300,
+  "factories": [
+    {"name": "Amaravati RCC Pipes – Velvadam", "district": "Krishna", "lat": 16.7438, "lon": 80.6399},
+    {"name": "Visakha RCC Pipes – Vellanki", "district": "Visakhapatnam", "lat": 17.8837, "lon": 83.0924},
+    {"name": "Visakha RCC Pipes – Rajula Tallavalasa", "district": "Visakhapatnam", "lat": 17.9150, "lon": 83.3820},
+    {"name": "Visakha RCC Pipes – Peddabammidi", "district": "Srikakulam", "lat": 18.5965, "lon": 84.1019}
+  ],
+  "projects": [
+    {"client":"NHAI","work":"NH-5 Highway Cross Drainage","lat":17.6868,"lon":83.2185,"length_m":8200,"dia_mm":1200,"cls":"NP4","year":2018,"nearest_factory":"Visakha RCC Pipes – Vellanki"},
+    {"client":"L&T","work":"Industrial Utility Pipeline","lat":16.5062,"lon":80.6480,"length_m":5400,"dia_mm":1000,"cls":"NP3","year":2019,"nearest_factory":"Amaravati RCC Pipes – Velvadam"},
+    {"client":"NCC","work":"Urban Storm Drainage","lat":17.9784,"lon":79.5941,"length_m":6900,"dia_mm":900,"cls":"NP3","year":2017,"nearest_factory":"Amaravati RCC Pipes – Velvadam"},
+    {"client":"MEIL","work":"Irrigation Pressure Main","lat":16.9891,"lon":82.2475,"length_m":9600,"dia_mm":1000,"cls":"P2","year":2018,"nearest_factory":"Amaravati RCC Pipes – Velvadam"},
+    {"client":"Gangavaram Port","work":"Port Drainage Works","lat":17.6214,"lon":83.2520,"length_m":4100,"dia_mm":800,"cls":"NP3","year":2016,"nearest_factory":"Visakha RCC Pipes – Vellanki"},
+    {"client":"RITES / SHELADIA JV","work":"NH Utility Crossing","lat":17.7041,"lon":83.2977,"length_m":3200,"dia_mm":600,"cls":"NP4","year":2015,"nearest_factory":"Visakha RCC Pipes – Vellanki"},
+    {"client":"Ashoka Buildcon","work":"Road Culvert Package","lat":18.2949,"lon":83.8938,"length_m":5800,"dia_mm":1200,"cls":"NP4","year":2019,"nearest_factory":"Visakha RCC Pipes – Peddabammidi"},
+    {"client":"Dilip Buildcon","work":"Highway Drainage Works","lat":17.3616,"lon":82.5449,"length_m":4700,"dia_mm":900,"cls":"NP3","year":2017,"nearest_factory":"Amaravati RCC Pipes – Velvadam"},
+    {"client":"APSIDC","work":"Lift Irrigation Scheme","lat":15.8281,"lon":78.0373,"length_m":12000,"dia_mm":1200,"cls":"P3","year":2016,"nearest_factory":"Amaravati RCC Pipes – Velvadam"},
+    {"client":"NTPC","work":"Plant Utility Drainage","lat":17.4399,"lon":78.3489,"length_m":3600,"dia_mm":700,"cls":"NP3","year":2014,"nearest_factory":"Amaravati RCC Pipes – Velvadam"}
+  ]
+}

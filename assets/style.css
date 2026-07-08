@@ -1,1 +1,137 @@
-/* main stylesheet placeholder */
+/* ============================================================
+   ARCCP — Main Stylesheet
+   Amaravati RCC Pipes India Pvt Ltd
+   ============================================================ */
+
+:root {
+  --brand:     #1a4f8a;
+  --brand-dk:  #0f3360;
+  --accent:    #e07b00;
+  --accent-lt: #f5a623;
+  --bg:        #f7f8fa;
+  --bg-alt:    #ffffff;
+  --text:      #1c1e26;
+  --text-muted:#5a6175;
+  --border:    #dde2ec;
+  --radius:    8px;
+  --shadow:    0 2px 12px rgba(0,0,0,.08);
+  --nav-h:     64px;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;color:var(--text);background:var(--bg);line-height:1.6}
+.container{max-width:1160px;margin:0 auto;padding:0 20px}
+
+/* TOPBAR */
+.topbar{position:sticky;top:0;z-index:900;background:var(--bg-alt);border-bottom:1px solid var(--border);height:var(--nav-h)}
+.topbar-inner{display:flex;align-items:center;justify-content:space-between;height:100%}
+.brand{display:flex;align-items:center;gap:8px;text-decoration:none}
+.brand-mark{font-size:1.25rem;font-weight:800;color:var(--brand);letter-spacing:-.5px}
+.brand-full{font-size:.85rem;color:var(--text-muted);display:none}
+@media(min-width:600px){.brand-full{display:block}}
+.nav-right{display:flex;align-items:center;gap:16px}
+.nav{display:none;gap:24px;align-items:center}
+@media(min-width:900px){.nav{display:flex}}
+.nav a{text-decoration:none;color:var(--text-muted);font-size:.9rem;font-weight:500;transition:color .2s}
+.nav a:hover{color:var(--brand)}
+.nav-cta{background:var(--brand);color:#fff !important;padding:8px 18px;border-radius:6px}
+.nav-cta:hover{background:var(--brand-dk) !important}
+.menu-toggle{display:flex;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:8px}
+.menu-toggle span{display:block;width:24px;height:2px;background:var(--text);border-radius:2px;transition:.3s}
+@media(min-width:900px){.menu-toggle{display:none}}
+
+/* LANG SWITCHER */
+.lang-switcher{position:relative}
+.lang-toggle{display:flex;align-items:center;gap:6px;background:none;border:1px solid var(--border);border-radius:6px;padding:6px 12px;cursor:pointer;font-size:.85rem;color:var(--text)}
+.lang-toggle:hover{border-color:var(--brand)}
+.lang-menu{display:none;position:absolute;right:0;top:calc(100% + 6px);background:#fff;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);min-width:130px;z-index:999}
+.lang-menu.open{display:block}
+.lang-switch-btn{display:block;width:100%;text-align:left;padding:10px 14px;background:none;border:none;cursor:pointer;font-size:.9rem;color:var(--text)}
+.lang-switch-btn:hover,.lang-switch-btn.active{background:var(--bg);color:var(--brand);font-weight:600}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,var(--brand-dk) 0%,var(--brand) 100%);color:#fff;padding:80px 0 60px}
+.hero-inner{display:grid;grid-template-columns:1fr;gap:40px}
+@media(min-width:900px){.hero-inner{grid-template-columns:1fr 1fr;align-items:center}}
+.eyebrow{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--accent-lt);margin-bottom:14px}
+.hero-copy h1{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;line-height:1.2;margin-bottom:16px}
+.hero-copy h1 .accent{color:var(--accent-lt)}
+.hero-sub{font-size:1rem;opacity:.88;margin-bottom:28px;max-width:520px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:36px}
+.btn{display:inline-block;padding:12px 24px;border-radius:6px;font-weight:700;font-size:.95rem;text-decoration:none;cursor:pointer;border:none;transition:.2s}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:#c96a00}
+.btn-ghost{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.3)}
+.btn-ghost:hover{background:rgba(255,255,255,.22)}
+.btn-block{width:100%;text-align:center;padding:14px;font-size:1rem}
+.hero-stats{display:flex;gap:28px;flex-wrap:wrap}
+.hero-stats div{display:flex;flex-direction:column}
+.hero-stats strong{font-size:1.4rem;font-weight:800}
+.hero-stats span{font-size:.78rem;opacity:.75}
+.hero-visual-placeholder{background:rgba(255,255,255,.08);border:2px dashed rgba(255,255,255,.25);border-radius:12px;height:280px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.5);font-size:.9rem;text-align:center;padding:20px}
+
+/* TRUSTBAR */
+.trustbar{background:var(--brand-dk);padding:14px 0}
+.trustbar-inner{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:center}
+.trustbar-inner span{color:rgba(255,255,255,.85);font-size:.82rem;font-weight:600;letter-spacing:.5px}
+.trustbar-inner span::before{content:"✓ ";color:var(--accent-lt)}
+
+/* SECTION */
+.section{padding:72px 0}
+.section-alt{background:var(--bg-alt)}
+.section h2{font-size:clamp(1.5rem,3vw,2rem);font-weight:800;margin-bottom:10px;color:var(--brand-dk)}
+.section-sub{color:var(--text-muted);margin-bottom:40px;max-width:600px}
+
+/* GRID */
+.grid{display:grid;gap:24px}
+.grid-3{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.grid-5{grid-template-columns:repeat(auto-fit,minmax(140px,1fr))}
+
+/* CARD */
+.card{background:var(--bg-alt);border:1px solid var(--border);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}
+.card h3{font-size:1.1rem;font-weight:700;margin:8px 0 6px;color:var(--brand-dk)}
+.card p{font-size:.9rem;color:var(--text-muted)}
+.tag{display:inline-block;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:3px 8px;border-radius:4px;background:#e8f0fd;color:var(--brand)}
+
+/* REGIONS */
+.region-grid{margin-top:16px}
+.region-pill{display:flex;align-items:center;justify-content:center;padding:18px;background:var(--bg);border:2px solid var(--border);border-radius:var(--radius);text-decoration:none;font-weight:700;color:var(--brand);font-size:.95rem;text-align:center;transition:.2s}
+.region-pill:hover{background:var(--brand);color:#fff;border-color:var(--brand)}
+
+/* MAP */
+#leaflet-map{height:460px;border-radius:var(--radius);border:1px solid var(--border);overflow:hidden;box-shadow:var(--shadow)}
+
+/* LOGO GALLERY */
+.logo-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+.logo-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:20px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.88rem;color:var(--text-muted);min-height:64px;text-align:center}
+
+/* QUOTE */
+.quote-section{background:linear-gradient(135deg,var(--brand-dk),var(--brand));color:#fff}
+.quote-inner{display:grid;gap:40px;grid-template-columns:1fr}
+@media(min-width:900px){.quote-inner{grid-template-columns:1fr 1fr;align-items:start}}
+.quote-copy h2{color:#fff}
+.quote-copy p{opacity:.88;margin-top:10px}
+.quote-form{display:flex;flex-direction:column;gap:14px}
+.quote-form input,.quote-form textarea,.quote-form select{padding:12px 14px;border-radius:6px;border:none;font-size:.95rem;width:100%;font-family:inherit}
+.quote-form textarea{min-height:90px;resize:vertical}
+
+/* FOOTER */
+.footer{background:var(--brand-dk);color:rgba(255,255,255,.8);padding:48px 0 24px}
+.footer-inner{display:grid;gap:28px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.footer h4{color:#fff;font-size:.95rem;margin-bottom:10px}
+.footer p,.footer a{font-size:.85rem;color:rgba(255,255,255,.65);text-decoration:none}
+.footer a:hover{color:var(--accent-lt)}
+
+/* MOBILE CTA */
+.mobile-cta-bar{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--accent);color:#fff;text-align:center;padding:16px;font-weight:700;z-index:800;text-decoration:none}
+@media(max-width:899px){.mobile-cta-bar{display:block}}
+body{padding-bottom:56px}
+@media(min-width:900px){body{padding-bottom:0}}
+
+/* BREADCRUMB */
+.breadcrumb{font-size:.85rem;color:var(--text-muted);margin-bottom:16px}
+.breadcrumb a{color:var(--brand);text-decoration:none}
+
+/* INDIC */
+.lang-indic{font-family:'Noto Sans Telugu','Noto Sans Oriya','Noto Sans Kannada',sans-serif}

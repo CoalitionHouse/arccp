@@ -1,1 +1,41 @@
-{"en": {"lang_name": "English"}}
+{
+  "en": {
+    "lang_name": "English", "html_lang": "en", "font_class": "",
+    "nav_products": "Products", "nav_regions": "Regions Served", "nav_map": "Project Map", "nav_clients": "Clients", "nav_cta": "Request a Quotation",
+    "eyebrow": "ISO 9001:2015 · IS 458:2003 Compliant · Since 1993",
+    "hero_h1_1": "RCC / Hume / Spun Pipes.", "hero_h1_2": "Horizontal & Vertical Casting.",
+    "hero_sub": "Manufacturing NP2, NP3, NP4 and P1/P2/P3 pressure pipes from 100mm to 2200mm dia. Supplying Andhra Pradesh, Telangana, Odisha, Karnataka & Chhattisgarh from 4 factories.",
+    "btn_quote": "Request a Quotation", "btn_products": "View Product Range",
+    "stat_supplied_val": "Over 1,50,000 m", "stat_supplied": "Pipe Supplied Since 1993", "stat_projects": "Client Projects", "stat_factories": "Factories",
+    "products_h2": "Product Range", "regions_h2": "Regions We Supply", "map_h2": "Factories, Supply Radius & Project Sites",
+    "clients_h2": "Client Gallery", "quote_h2": "Request a Quotation",
+    "f_name": "Your Name", "f_company": "Company Name", "f_phone": "Phone Number", "f_email": "Email Address",
+    "f_dia": "Diameter (mm) & Quantity", "f_msg": "Additional details",
+    "f_submit": "Send Quotation Request",
+    "footer_copy": "© 2026 Amaravati RCC Pipes India Pvt Ltd. All rights reserved.",
+    "mobile_cta": "Request a Quotation"
+  },
+  "te": {
+    "lang_name": "తెలుగు", "html_lang": "te", "font_class": "lang-indic",
+    "nav_products": "ఉత్పత్తులు", "nav_regions": "సేవలందిస్తున్న ప్రాంతాలు", "nav_map": "ప్రాజెక్ట్ మ్యాప్", "nav_clients": "క్లయింట్లు", "nav_cta": "కోటేషన్ కోరండి",
+    "eyebrow": "ISO 9001:2015 · IS 458:2003 అనుగుణం · 1993 నుండి",
+    "hero_h1_1": "RCC / హ్యూమ్ / స్పన్ పైపులు.", "hero_h1_2": "హారిజాంటల్ & వర్టికల్ కాస్టింగ్.",
+    "btn_quote": "కోటేషన్ కోరండి", "btn_products": "ఉత్పత్తి శ్రేణి చూడండి",
+    "stat_supplied_val": "1,50,000 మీ. పైగా", "stat_supplied": "1993 నుండి సరఫరా చేసిన పైపు", "stat_projects": "క్లయింట్ ప్రాజెక్టులు", "stat_factories": "ఫ్యాక్టరీలు",
+    "products_h2": "ఉత్పత్తి శ్రేణి", "regions_h2": "మేము సేవలందించే ప్రాంతాలు", "map_h2": "ఫ్యాక్టరీలు, సరఫరా పరిధి & ప్రాజెక్ట్ సైట్లు",
+    "clients_h2": "క్లయింట్ గ్యాలరీ", "quote_h2": "కోటేషన్ కోరండి",
+    "f_name": "మీ పేరు", "f_company": "కంపెనీ పేరు", "f_phone": "ఫోన్ నంబర్", "f_email": "ఇమెయిల్ చిరునామా",
+    "f_submit": "కోటేషన్ అభ్యర్థన పంపండి",
+    "mobile_cta": "కోటేషన్ కోరండి"
+  },
+  "or": {
+    "lang_name": "ଓଡ଼ିଆ", "html_lang": "or", "font_class": "lang-indic",
+    "nav_cta": "କୋଟେସନ୍ ମାଗନ୍ତୁ", "btn_quote": "କୋଟେସନ୍ ମାଗନ୍ତୁ",
+    "f_submit": "କୋଟେସନ୍ ଅନୁରୋଧ ପଠାନ୍ତୁ", "mobile_cta": "କୋଟେସନ୍ ମାଗନ୍ତୁ"
+  },
+  "kn": {
+    "lang_name": "ಕನ್ನಡ", "html_lang": "kn", "font_class": "lang-indic",
+    "nav_cta": "ಉಲ್ಲೇಖ ಕೋರಿ", "btn_quote": "ಉಲ್ಲೇಖ ಕೋರಿ",
+    "f_submit": "ಉಲ್ಲೇಖ ವಿನಂತಿ ಕಳುಹಿಸಿ", "mobile_cta": "ಉಲ್ಲೇಖ ಕೋರಿ"
+  }
+}
