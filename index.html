@@ -6,7 +6,7 @@
   <title>Amaravati RCC Pipes | RCC Hume &amp; Spun Pipe Manufacturer – AP, Telangana, Odisha, Karnataka, Chhattisgarh</title>
   <meta name="description" content="Amaravati RCC Pipes (ARCCP) manufactures IS 458:2003 compliant RCC Hume, Spun &amp; Pressure Pipes (NP2–NP4, P1–P3) from 100mm–2200mm dia. Supplying AP, Telangana, Odisha, Karnataka &amp; Chhattisgarh. ISO 9001:2015 certified.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Noto+Sans+Telugu:wght@400;600;700;800&family=Noto+Sans+Oriya:wght@400;600;700;800&family=Noto+Sans+Kannada:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Noto+Sans+Telugu:wght@400;600;700;800&family=Noto+Sans+Oriya:wght@400;600;700;800&family=Noto+Sans+Kannada:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
   <link rel="stylesheet" href="assets/style.css">
   <meta property="og:title" content="Amaravati RCC Pipes | RCC Hume &amp; Spun Pipe Manufacturer">
@@ -100,9 +100,9 @@
 <section id="map" class="section">
   <div class="container">
     <h2 data-i18n="map_h2">Factories, Supply Radius &amp; Project Sites</h2>
-    <p class="section-sub">Black markers = factories with ~300km indicative supply radius. Orange markers = documented client project sites, sized by pipe length supplied.</p>
+    <p class="section-sub">Orange markers = factories with ~300km supply radius. Yellow markers = documented client project sites, sized by pipe length supplied.</p>
     <div id="leaflet-map" data-path="data/projects.json"></div>
-    <p style="font-size:.78rem;color:#5a6175;margin-top:10px">* Project sites are approximate district-level coordinates. Add new projects to data/projects.json to update the map automatically.</p>
+    <p style="font-size:.78rem;color:var(--text-muted);margin-top:10px">* Project sites are approximate district-level coordinates. Add new projects to data/projects.json to update the map automatically.</p>
   </div>
 </section>
 
@@ -127,21 +127,30 @@
     <div class="quote-copy">
       <h2 data-i18n="quote_h2">Request a Quotation</h2>
       <p>Tell us your pipe class, diameter and site location — our team responds within 24 hours.</p>
-      <ul style="margin-top:20px;list-style:none;display:flex;flex-direction:column;gap:10px">
-        <li>&#10003; ISI-marked, IS 458:2003 tested pipes with test certificates</li>
-        <li>&#10003; Delivery across AP, Telangana, Odisha, Karnataka &amp; Chhattisgarh</li>
-        <li>&#10003; Direct from factory — no middlemen pricing</li>
+      <ul>
+        <li>ISI-marked, IS 458:2003 tested pipes with test certificates</li>
+        <li>Delivery across AP, Telangana, Odisha, Karnataka &amp; Chhattisgarh</li>
+        <li>Direct from factory — no middlemen pricing</li>
       </ul>
     </div>
-    <form class="quote-form" name="arccp-quotation" method="POST" data-netlify="true" action="/thank-you.html">
-      <input type="text" name="name" placeholder="Your Name" data-i18n-placeholder="f_name" required>
-      <input type="text" name="company" placeholder="Company Name" data-i18n-placeholder="f_company">
-      <input type="tel" name="phone" placeholder="Phone Number" data-i18n-placeholder="f_phone" required>
+    <form class="quote-form" id="quoteForm">
+      <input type="text" name="name" placeholder="Your Name *" data-i18n-placeholder="f_name" required>
+      <input type="text" name="company" placeholder="Company / Organisation" data-i18n-placeholder="f_company">
+      <input type="tel" name="phone" placeholder="Phone Number *" data-i18n-placeholder="f_phone" required>
       <input type="email" name="email" placeholder="Email Address" data-i18n-placeholder="f_email">
-      <select name="state"><option value="">Select Project State</option><option>Andhra Pradesh</option><option>Telangana</option><option>Odisha</option><option>Karnataka</option><option>Chhattisgarh</option><option>Other</option></select>
-      <select name="pipe_class"><option value="">Pipe Class Needed</option><option>NP2</option><option>NP3</option><option>NP4</option><option>P1</option><option>P2</option><option>P3</option><option>Half-Round / Split</option><option>Not sure</option></select>
-      <input type="text" name="dia_qty" placeholder="Diameter (mm) &amp; Quantity" data-i18n-placeholder="f_dia">
-      <textarea name="message" placeholder="Additional details" data-i18n-placeholder="f_msg"></textarea>
+      <select name="state">
+        <option value="">Select Project State</option>
+        <option>Andhra Pradesh</option><option>Telangana</option><option>Odisha</option>
+        <option>Karnataka</option><option>Chhattisgarh</option><option>Other</option>
+      </select>
+      <select name="pipe_class">
+        <option value="">Pipe Class Needed</option>
+        <option>NP2</option><option>NP3</option><option>NP4</option>
+        <option>P1</option><option>P2</option><option>P3</option>
+        <option>Half-Round / Split</option><option>Not sure – need advice</option>
+      </select>
+      <input type="text" name="dia_qty" placeholder="Diameter (mm) &amp; Quantity  e.g. 900mm × 200 nos" data-i18n-placeholder="f_dia">
+      <textarea name="message" placeholder="Additional details — project name, site location, delivery timeline…" data-i18n-placeholder="f_msg"></textarea>
       <button type="submit" class="btn btn-primary btn-block" data-i18n="f_submit">Send Quotation Request</button>
     </form>
   </div>
@@ -149,11 +158,25 @@
 
 <footer class="footer">
   <div class="container footer-inner">
-    <div><h4>Amaravati RCC Pipes India Pvt Ltd</h4><p>Adda Road, Velvadam Village,<br>Mylavaram Mandal, Krishna District,<br>Andhra Pradesh – 521 109</p></div>
-    <div><h4>Visakha RCC Pipes India Pvt Ltd</h4><p>Vellanki · Rajula Tallavalasa · Peddabammidi<br>Visakhapatnam &amp; Srikakulam Districts, AP</p></div>
-    <div><h4>Quick Links</h4><a href="#products">Products</a><br><a href="#regions">Regions Served</a><br><a href="#map">Project Map</a><br><a href="#quote">Request Quotation</a></div>
+    <div>
+      <h4>Amaravati RCC Pipes India Pvt Ltd</h4>
+      <p>Adda Road, Velvadam Village,<br>Mylavaram Mandal, Krishna District,<br>Andhra Pradesh – 521 109</p>
+      <p style="margin-top:8px"><a href="mailto:info@amaravatirccpipes.com">info@amaravatirccpipes.com</a></p>
+    </div>
+    <div>
+      <h4>Visakha RCC Pipes India Pvt Ltd</h4>
+      <p>Vellanki · Rajula Tallavalasa · Peddabammidi<br>Visakhapatnam &amp; Srikakulam Districts, AP</p>
+    </div>
+    <div>
+      <h4>Quick Links</h4>
+      <a href="#products">Products</a><br>
+      <a href="#regions">Regions Served</a><br>
+      <a href="#map">Project Map</a><br>
+      <a href="#clients">Clients</a><br>
+      <a href="#quote">Request Quotation</a>
+    </div>
   </div>
-  <div style="text-align:center;margin-top:24px;padding-top:16px;border-top:1px solid rgba(255,255,255,.1)">
+  <div style="text-align:center;margin-top:24px;padding-top:16px;border-top:1px solid rgba(255,255,255,.12)">
     <p style="font-size:.8rem;opacity:.5" data-i18n="footer_copy">© 2026 Amaravati RCC Pipes India Pvt Ltd. All rights reserved.</p>
   </div>
 </footer>
@@ -164,5 +187,6 @@
 <script src="assets/map.js"></script>
 <script src="assets/nav.js"></script>
 <script src="assets/i18n.js"></script>
+<script src="assets/form.js"></script>
 </body>
 </html>
