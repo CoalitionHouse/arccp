@@ -193,29 +193,52 @@ body{
 .map-footnote{font-size:.78rem;color:var(--text-muted);margin-top:10px}
 
 /* ── CLIENT LOGO GALLERY ── */
-.logo-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+.logo-gallery{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(140px,1fr));
+  gap:10px;
+}
 .logo-card{
+  /* fixed uniform pill size — nothing can overflow this box */
   background:#fff;
   border:1px solid var(--border);
   border-radius:999px;
-  padding:10px 16px;
+  height:60px;          /* fixed height — all pills identical */
+  padding:0 16px;
   display:flex;
   align-items:center;
   justify-content:center;
   gap:8px;
+  overflow:hidden;      /* hard clip — no image can bleed out */
   font-weight:600;
-  font-size:.83rem;
+  font-size:.78rem;
   color:#14110e;
-  min-height:52px;
-  transition:.12s;
+  white-space:nowrap;
+  transition:border-color .12s, box-shadow .12s;
 }
-.logo-card:hover{border-color:var(--brand);box-shadow:0 2px 10px rgba(255,122,26,.15)}
+.logo-card:hover{
+  border-color:var(--brand);
+  box-shadow:0 2px 10px rgba(255,122,26,.18);
+}
+/* logo image inside pill — strictly contained */
 .logo-card img{
-  height:28px;
+  display:block;
+  height:32px;          /* fixed image height */
   width:auto;
-  max-width:56px;
+  max-width:72px;       /* never wider than 72px */
+  max-height:32px;      /* belt + braces */
   object-fit:contain;
   flex-shrink:0;
+  pointer-events:none;
+}
+/* text label alongside or under image */
+.logo-card span{
+  display:block;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  max-width:80px;
+  font-size:.75rem;
 }
 
 /* ── QUOTE SECTION ── */
