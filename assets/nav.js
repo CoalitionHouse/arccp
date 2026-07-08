@@ -1,26 +1,52 @@
-/* nav.js — mobile nav & lang dropdown */
+/* nav.js — mobile nav overlay & lang dropdown */
 document.addEventListener('DOMContentLoaded', function () {
-  var toggle = document.getElementById('menuToggle');
-  var nav = document.getElementById('mainNav');
-  if (toggle && nav) {
+
+  /* ── HAMBURGER / MOBILE NAV ── */
+  var toggle   = document.getElementById('menuToggle');
+  var mobileNav = document.getElementById('navMobile');
+
+  if (toggle && mobileNav) {
     toggle.addEventListener('click', function () {
-      var open = nav.style.display === 'flex';
-      nav.style.display = open ? 'none' : 'flex';
-      nav.style.flexDirection = 'column';
-      nav.style.position = 'absolute';
-      nav.style.top = '64px';
-      nav.style.right = '0';
-      nav.style.background = '#fff';
-      nav.style.padding = '16px 24px';
-      nav.style.boxShadow = '0 4px 16px rgba(0,0,0,.12)';
-      nav.style.borderTop = '1px solid #dde2ec';
-      nav.style.zIndex = '800';
+      var isOpen = mobileNav.classList.toggle('open');
+      toggle.classList.toggle('open', isOpen);
+      mobileNav.setAttribute('aria-hidden', String(!isOpen));
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+
+    /* Close menu when any link inside it is clicked */
+    mobileNav.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        mobileNav.classList.remove('open');
+        toggle.classList.remove('open');
+        mobileNav.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      });
+    });
+
+    /* Close menu on outside tap */
+    document.addEventListener('click', function (e) {
+      if (mobileNav.classList.contains('open') &&
+          !mobileNav.contains(e.target) &&
+          !toggle.contains(e.target)) {
+        mobileNav.classList.remove('open');
+        toggle.classList.remove('open');
+        mobileNav.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
     });
   }
+
+  /* ── LANG DROPDOWN ── */
   var langToggle = document.getElementById('langToggle');
-  var langMenu = document.getElementById('langMenu');
+  var langMenu   = document.getElementById('langMenu');
   if (langToggle && langMenu) {
-    langToggle.addEventListener('click', function (e) { e.stopPropagation(); langMenu.classList.toggle('open'); });
-    document.addEventListener('click', function () { langMenu.classList.remove('open'); });
+    langToggle.addEventListener('click', function (e) {
+      e.stopPropagation();
+      langMenu.classList.toggle('open');
+    });
+    document.addEventListener('click', function () {
+      langMenu.classList.remove('open');
+    });
   }
+
 });

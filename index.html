@@ -19,8 +19,13 @@
 
 <header class="topbar">
   <div class="container topbar-inner">
-    <a class="brand" href="index.html"><span class="brand-mark">ARCCP</span><span class="brand-full">Amaravati RCC Pipes</span></a>
-    <button class="menu-toggle" id="menuToggle" type="button"><span></span><span></span><span></span></button>
+    <a class="brand" href="index.html">
+      <img src="assets/img/logo-ARCCP.png" alt="ARCCP Logo" class="brand-logo">
+      <span class="brand-full">Amaravati RCC Pipes</span>
+    </a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation" type="button">
+      <span></span><span></span><span></span>
+    </button>
     <div class="nav-right">
       <div class="lang-switcher">
         <button class="lang-toggle" id="langToggle" type="button">&#127760; <span id="langLabel">English</span></button>
@@ -40,6 +45,14 @@
       </nav>
     </div>
   </div>
+  <!-- Mobile nav overlay -->
+  <nav class="nav-mobile" id="navMobile" aria-hidden="true">
+    <a href="#products" data-i18n="nav_products">Products</a>
+    <a href="#regions" data-i18n="nav_regions">Regions Served</a>
+    <a href="#map" data-i18n="nav_map">Project Map</a>
+    <a href="#clients" data-i18n="nav_clients">Clients</a>
+    <a href="#quote" class="nav-mobile-cta" data-i18n="nav_cta">Request a Quotation</a>
+  </nav>
 </header>
 
 <section class="hero">
@@ -57,28 +70,40 @@
         <div><strong>15+</strong><span data-i18n="stat_projects">Client Projects</span></div>
         <div><strong>4</strong><span data-i18n="stat_factories">Factories</span></div>
       </div>
+      <p class="hero-disclaimer">*Cumulative estimate based on available purchase-order records and factory production capacity since 1993; not an audited figure.</p>
     </div>
-    <div class="hero-visual"><div class="hero-visual-placeholder">Hero Banner Placeholder<br><small>Place hero-banner.jpg at assets/img/banner/hero-banner.jpg</small></div></div>
+    <div class="hero-visual">
+      <img
+        src="assets/img/hero-banner.png"
+        alt="RCC pipe stacks at Amaravati RCC Pipes manufacturing yard"
+        class="hero-banner-img"
+      >
+    </div>
   </div>
 </section>
 
 <section class="trustbar">
   <div class="container trustbar-inner">
-    <span>ISO 9001:2015 Certified</span><span>IS 458:2003 Compliant</span><span>In-house Testing Lab</span><span>50 Units/Day Capacity</span><span>25+ Years Experience</span><span>4 Factory Locations</span>
+    <span data-i18n="trust_iso">ISO 9001:2015 Certified</span>
+    <span data-i18n="trust_is458">IS 458:2003 Compliant</span>
+    <span data-i18n="trust_lab">In-house Testing Lab</span>
+    <span data-i18n="trust_capacity">50 Units/Day Capacity</span>
+    <span data-i18n="trust_experience">25+ Years Experience</span>
+    <span>4 Factory Locations</span>
   </div>
 </section>
 
 <section id="products" class="section">
   <div class="container">
     <h2 data-i18n="products_h2">Product Range</h2>
-    <p class="section-sub">All classes manufactured as per IS 458:2003, with Socket-Spigot or Tongue &amp; Groove rubber-ring joints.</p>
+    <p class="section-sub" data-i18n="products_sub">All classes manufactured as per IS 458:2003, with Socket-Spigot or Tongue &amp; Groove rubber-ring joints.</p>
     <div class="grid grid-3">
-      <div class="card"><span class="tag">Non-Pressure</span><h3>NP2 Class</h3><p>100mm – 1200mm dia. Cross-drains &amp; culverts for light traffic.</p></div>
-      <div class="card"><span class="tag">Non-Pressure</span><h3>NP3 / NP4 Class</h3><p>100mm – 2200mm dia. Heavy-duty: highways, rail crossings, road culverts.</p></div>
-      <div class="card"><span class="tag">Pressure</span><h3>P1 / P2 / P3 Class</h3><p>100mm – 1200mm dia. Lift irrigation schemes &amp; pressurised water lines.</p></div>
-      <div class="card"><span class="tag">Specialty</span><h3>Half-Round / Split Pipes</h3><p>Cabling ducts &amp; drainage works.</p></div>
-      <div class="card"><span class="tag">Casting</span><h3>Horizontal Spinning</h3><p>3 spinning units, 6 mixers, 4 cage drums, sprinkler curing.</p></div>
-      <div class="card"><span class="tag">Testing</span><h3>In-House IS 458 Lab</h3><p>Three-edge bearing, hydrostatic &amp; permeability tests on every batch.</p></div>
+      <div class="card"><span class="tag" data-i18n="tag_nonpressure">Non-Pressure</span><h3 data-i18n="prod_np2_title">NP2 Class</h3><p data-i18n="prod_np2_body">100mm – 1200mm dia. Cross-drains &amp; culverts for light traffic.</p></div>
+      <div class="card"><span class="tag" data-i18n="tag_nonpressure">Non-Pressure</span><h3 data-i18n="prod_np3n4_title">NP3 / NP4 Class</h3><p data-i18n="prod_np3n4_body">100mm – 2200mm dia. Heavy-duty: highways, rail crossings, road culverts.</p></div>
+      <div class="card"><span class="tag" data-i18n="tag_pressure">Pressure</span><h3 data-i18n="prod_p_title">P1 / P2 / P3 Class</h3><p data-i18n="prod_p_body">100mm – 1200mm dia. Lift irrigation schemes &amp; pressurised water lines.</p></div>
+      <div class="card"><span class="tag" data-i18n="tag_special">Specialty</span><h3 data-i18n="prod_split_title">Half-Round / Split Pipes</h3><p data-i18n="prod_split_body">Cabling ducts &amp; drainage works.</p></div>
+      <div class="card"><span class="tag" data-i18n="tag_casting">Casting</span><h3 data-i18n="prod_spin_title">Horizontal Spinning</h3><p data-i18n="prod_spin_body">3 spinning units, 6 mixers, 4 cage drums, sprinkler curing.</p></div>
+      <div class="card"><span class="tag" data-i18n="tag_testing">Testing</span><h3 data-i18n="prod_lab_title">In-House IS 458 Lab</h3><p data-i18n="prod_lab_body">Three-edge bearing, hydrostatic &amp; permeability tests on every batch.</p></div>
     </div>
   </div>
 </section>
@@ -86,13 +111,13 @@
 <section id="regions" class="section section-alt">
   <div class="container">
     <h2 data-i18n="regions_h2">Regions We Supply</h2>
-    <p class="section-sub">Four factories across coastal Andhra Pradesh serve a five-state radius. Click a state for local delivery details.</p>
+    <p class="section-sub" data-i18n="regions_sub">Four factories across coastal Andhra Pradesh serve a five-state radius. Click a state for local delivery details.</p>
     <div class="grid grid-5 region-grid">
-      <a class="region-pill" href="andhra-pradesh/index.html">Andhra Pradesh</a>
-      <a class="region-pill" href="telangana/index.html">Telangana</a>
-      <a class="region-pill" href="odisha/index.html">Odisha</a>
-      <a class="region-pill" href="karnataka/index.html">Karnataka</a>
-      <a class="region-pill" href="chhattisgarh/index.html">Chhattisgarh</a>
+      <a class="region-pill" href="andhra-pradesh/index.html" data-i18n="regions_ap">Andhra Pradesh</a>
+      <a class="region-pill" href="telangana/index.html" data-i18n="regions_tg">Telangana</a>
+      <a class="region-pill" href="odisha/index.html" data-i18n="regions_or">Odisha</a>
+      <a class="region-pill" href="karnataka/index.html" data-i18n="regions_ka">Karnataka</a>
+      <a class="region-pill" href="chhattisgarh/index.html" data-i18n="regions_cg">Chhattisgarh</a>
     </div>
   </div>
 </section>
@@ -100,24 +125,40 @@
 <section id="map" class="section">
   <div class="container">
     <h2 data-i18n="map_h2">Factories, Supply Radius &amp; Project Sites</h2>
-    <p class="section-sub">Orange markers = factories with ~300km supply radius. Yellow markers = documented client project sites, sized by pipe length supplied.</p>
+    <p class="section-sub" data-i18n="map_sub">Black markers = factories with ~300km indicative supply radius. Orange markers = client project sites, sized by pipe length supplied.</p>
     <div id="leaflet-map" data-path="data/projects.json"></div>
-    <p style="font-size:.78rem;color:var(--text-muted);margin-top:10px">* Project sites are approximate district-level coordinates. Add new projects to data/projects.json to update the map automatically.</p>
+    <p class="map-footnote" data-i18n="map_foot">* Project sites are approximate district-level coordinates. Add new projects to data/projects.json to update the map automatically.</p>
   </div>
 </section>
 
 <section id="clients" class="section section-alt">
   <div class="container">
     <h2 data-i18n="clients_h2">Client Gallery</h2>
-    <p class="section-sub">Government bodies, EPC contractors and industrial clients — contributing to over 1,50,000 metres of cumulative pipe supply since 1993.</p>
+    <p class="section-sub" data-i18n="clients_sub">Government bodies, EPC contractors and industrial clients we have supplied, contributing to over 1,50,000 metres of cumulative pipe supply since 1993.</p>
     <div class="logo-gallery">
-      <div class="logo-card">NHAI</div><div class="logo-card">L&amp;T</div><div class="logo-card">NCC</div><div class="logo-card">MEIL</div>
-      <div class="logo-card">Ashoka Buildcon</div><div class="logo-card">Dilip Buildcon</div><div class="logo-card">Gangavaram Port</div>
-      <div class="logo-card">RITES / SHELADIA JV</div><div class="logo-card">Tata Projects</div><div class="logo-card">Shapoorji Pallonji</div>
-      <div class="logo-card">IVRCL</div><div class="logo-card">GR Infraprojects</div><div class="logo-card">NTPC</div>
-      <div class="logo-card">APSIDC</div><div class="logo-card">Vasishta Constructions</div><div class="logo-card">BIMA Developers</div>
-      <div class="logo-card">SVC Projects</div><div class="logo-card">Lekcon Infrastructure</div><div class="logo-card">Schneider Electric</div>
-      <div class="logo-card">Refex Industries</div>
+      <div class="logo-card"><img src="assets/img/client-nhai.jpg" alt="NHAI"><span>NHAI</span></div>
+      <div class="logo-card"><img src="assets/img/client-lt.png" alt="L&amp;T"><span>L&amp;T</span></div>
+      <div class="logo-card"><img src="assets/img/client-NCC.jpeg" alt="NCC"><span>NCC</span></div>
+      <div class="logo-card"><span>MEIL</span></div>
+      <div class="logo-card"><span>Ashoka Buildcon</span></div>
+      <div class="logo-card"><span>Dilip Buildcon</span></div>
+      <div class="logo-card"><img src="assets/img/client-bridge-roof-company.jpg" alt="Gangavaram Port"><span>Gangavaram Port</span></div>
+      <div class="logo-card"><span>RITES / SHELADIA JV</span></div>
+      <div class="logo-card"><img src="assets/img/client-tata.jpeg" alt="Tata Projects"><span>Tata Projects</span></div>
+      <div class="logo-card"><img src="assets/img/client-sp.png" alt="Shapoorji Pallonji"><span>Shapoorji Pallonji</span></div>
+      <div class="logo-card"><img src="assets/img/client-ivrcl.png" alt="IVRCL"><span>IVRCL</span></div>
+      <div class="logo-card"><span>GR Infraprojects</span></div>
+      <div class="logo-card"><img src="assets/img/client-ntpc.png" alt="NTPC"><span>NTPC</span></div>
+      <div class="logo-card"><img src="assets/img/client-ap-govt.png" alt="Govt of AP"><span>Govt of AP / APSIDC</span></div>
+      <div class="logo-card"><span>Vasishta Constructions</span></div>
+      <div class="logo-card"><span>BIMA Developers</span></div>
+      <div class="logo-card"><span>SVC Projects</span></div>
+      <div class="logo-card"><span>Lekcon Infrastructure</span></div>
+      <div class="logo-card"><img src="assets/img/client-madhucon.jpg" alt="Madhucon"><span>Madhucon</span></div>
+      <div class="logo-card"><img src="assets/img/client-punj-lloyd.jpeg" alt="Punj Lloyd"><span>Punj Lloyd</span></div>
+      <div class="logo-card"><img src="assets/img/client-leighton.jpg" alt="Leighton"><span>Leighton</span></div>
+      <div class="logo-card"><span>Schneider Electric</span></div>
+      <div class="logo-card"><span>Refex Industries</span></div>
     </div>
   </div>
 </section>
@@ -126,11 +167,11 @@
   <div class="container quote-inner">
     <div class="quote-copy">
       <h2 data-i18n="quote_h2">Request a Quotation</h2>
-      <p>Tell us your pipe class, diameter and site location — our team responds within 24 hours.</p>
+      <p data-i18n="quote_intro">Tell us your pipe class, diameter and site location — our team responds within 24 hours.</p>
       <ul>
-        <li>ISI-marked, IS 458:2003 tested pipes with test certificates</li>
-        <li>Delivery across AP, Telangana, Odisha, Karnataka &amp; Chhattisgarh</li>
-        <li>Direct from factory — no middlemen pricing</li>
+        <li data-i18n="quote_b1">ISI-marked, IS 458:2003 tested pipes with test certificates</li>
+        <li data-i18n="quote_b2">Delivery across AP, Telangana, Odisha, Karnataka &amp; Chhattisgarh</li>
+        <li data-i18n="quote_b3">Direct from factory — no middlemen pricing</li>
       </ul>
     </div>
     <form class="quote-form" id="quoteForm">
@@ -159,25 +200,29 @@
 <footer class="footer">
   <div class="container footer-inner">
     <div>
+      <img src="assets/img/logo-ARCCP.png" alt="ARCCP Logo" class="footer-logo">
       <h4>Amaravati RCC Pipes India Pvt Ltd</h4>
       <p>Adda Road, Velvadam Village,<br>Mylavaram Mandal, Krishna District,<br>Andhra Pradesh – 521 109</p>
-      <p style="margin-top:8px"><a href="mailto:info@amaravatirccpipes.com">info@amaravatirccpipes.com</a></p>
+      <p style="margin-top:8px">Ph: +91 8885322888 · +91 9848998933</p>
+      <p><a href="mailto:info@amaravatirccpipes.com">info@amaravatirccpipes.com</a></p>
     </div>
     <div>
+      <img src="assets/img/logo-VRCCP.png" alt="VRCCP Logo" class="footer-logo">
       <h4>Visakha RCC Pipes India Pvt Ltd</h4>
-      <p>Vellanki · Rajula Tallavalasa · Peddabammidi<br>Visakhapatnam &amp; Srikakulam Districts, AP</p>
+      <p>KM 23, NH 16, Vellanki, Anakapalli, Visakhapatnam 531761</p>
+      <p style="margin-top:6px">KM 23, NH 16, Rajula Tallavalasa, Bheeili, Visakhapatnam<br>KM 121, NH 16, Peddabammidi, Kotabommali, Srikakulam</p>
     </div>
     <div>
-      <h4>Quick Links</h4>
-      <a href="#products">Products</a><br>
-      <a href="#regions">Regions Served</a><br>
-      <a href="#map">Project Map</a><br>
-      <a href="#clients">Clients</a><br>
-      <a href="#quote">Request Quotation</a>
+      <h4 data-i18n="footer_quick">Quick Links</h4>
+      <a href="#products" data-i18n="nav_products">Products</a><br>
+      <a href="#regions" data-i18n="nav_regions">Regions Served</a><br>
+      <a href="#map" data-i18n="nav_map">Project Map</a><br>
+      <a href="#clients" data-i18n="nav_clients">Clients</a><br>
+      <a href="#quote" data-i18n="nav_cta">Request Quotation</a>
     </div>
   </div>
-  <div style="text-align:center;margin-top:24px;padding-top:16px;border-top:1px solid rgba(255,255,255,.12)">
-    <p style="font-size:.8rem;opacity:.5" data-i18n="footer_copy">© 2026 Amaravati RCC Pipes India Pvt Ltd. All rights reserved.</p>
+  <div class="footer-copy-bar">
+    <p data-i18n="footer_copy">© 2026 Amaravati RCC Pipes India Pvt Ltd. All rights reserved.</p>
   </div>
 </footer>
 
