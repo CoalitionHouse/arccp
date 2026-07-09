@@ -1,16 +1,12 @@
-/* map.js v3.3 — align delivery stubs to main highway bearings */
+/* map.js v3.4 — delivery/project stubs pass through location aligned to bearing */
 (function () {
 
 var MAP_DATA_DELIVERY_CITIES = [
   { name: 'Raipur',       state: 'Chhattisgarh',   lat: 21.2514, lon: 81.6296, spoke_km: 90, bearing: 25 },
   { name: 'Rayagada',     state: 'Odisha',         lat: 19.1700, lon: 83.4100, spoke_km: 70, bearing: 320 },
-  // Rotate Bhubaneswar stub to follow coastal NH-16 south-west toward Vizianagaram / Visakhapatnam
   { name: 'Bhubaneswar',  state: 'Odisha',         lat: 20.2961, lon: 85.8245, spoke_km: 80, bearing: 255 },
-  // Rotate Bengaluru stub north-north-east toward Anantapur / Kurnool corridor
   { name: 'Bengaluru',    state: 'Karnataka',      lat: 12.9716, lon: 77.5946, spoke_km: 100, bearing: 25 },
-  // Rotate Anantapur stub east toward Kurnool / Hyderabad
   { name: 'Anantapur',    state: 'Andhra Pradesh', lat: 14.6819, lon: 77.6006, spoke_km: 60, bearing: 85 },
-  // Rotate Kadapa stub north-north-west toward Kurnool
   { name: 'Kadapa',       state: 'Andhra Pradesh', lat: 14.4673, lon: 78.8242, spoke_km: 50, bearing: 335 },
   { name: 'Sri City',     state: 'Andhra Pradesh', lat: 13.4000, lon: 80.0000, spoke_km: 70, bearing: 45 }
 ];
@@ -151,21 +147,18 @@ function fmtLen(m) {
   return m >= 1000 ? (m / 1000).toFixed(1) + ' km' : m + ' m';
 }
 
+// Draw a straight stub that passes through the delivery/project location, aligned to bearing
 function addRoadSegment(map, lat, lon, km, bearingDeg) {
-  var half = (km / 111);
+  var half = (km / 111); // approximate degrees of latitude/longitude for total stub length
   var rad = (bearingDeg || 0) * Math.PI / 180;
   var dx = Math.cos(rad) * half;
   var dy = Math.sin(rad) * half;
-  var pr = rad + Math.PI / 2;
-  var px = Math.cos(pr) * half * 0.5;
-  var py = Math.sin(pr) * half * 0.5;
 
-  var mid = [lat, lon];
-  var p1 = [mid[0] - dy * 0.6 - py, mid[1] - dx * 0.6 - px];
-  var p2 = [mid[0] + py,           mid[1] + px];
-  var p3 = [mid[0] + dy * 0.6 + py, mid[1] + dx * 0.6 + px];
+  // line goes from the city marker outward along the corridor direction
+  var start = [lat, lon];
+  var end = [lat + dy, lon + dx];
 
-  L.polyline([p1, p2, p3], {
+  L.polyline([start, end], {
     color:'#f58a1f', weight:4, opacity:0.95, lineCap:'round', lineJoin:'round'
   }).addTo(map);
 }
