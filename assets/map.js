@@ -1,13 +1,17 @@
-/* map.js v3.2 — wire NH-5 and corridors to route-*.geojson filenames */
+/* map.js v3.3 — align delivery stubs to main highway bearings */
 (function () {
 
 var MAP_DATA_DELIVERY_CITIES = [
   { name: 'Raipur',       state: 'Chhattisgarh',   lat: 21.2514, lon: 81.6296, spoke_km: 90, bearing: 25 },
   { name: 'Rayagada',     state: 'Odisha',         lat: 19.1700, lon: 83.4100, spoke_km: 70, bearing: 320 },
-  { name: 'Bhubaneswar',  state: 'Odisha',         lat: 20.2961, lon: 85.8245, spoke_km: 80, bearing: 70 },
-  { name: 'Bengaluru',    state: 'Karnataka',      lat: 12.9716, lon: 77.5946, spoke_km: 100, bearing: 340 },
-  { name: 'Anantapur',    state: 'Andhra Pradesh', lat: 14.6819, lon: 77.6006, spoke_km: 60, bearing: 115 },
-  { name: 'Kadapa',       state: 'Andhra Pradesh', lat: 14.4673, lon: 78.8242, spoke_km: 50, bearing: 300 },
+  // Rotate Bhubaneswar stub to follow coastal NH-16 south-west toward Vizianagaram / Visakhapatnam
+  { name: 'Bhubaneswar',  state: 'Odisha',         lat: 20.2961, lon: 85.8245, spoke_km: 80, bearing: 255 },
+  // Rotate Bengaluru stub north-north-east toward Anantapur / Kurnool corridor
+  { name: 'Bengaluru',    state: 'Karnataka',      lat: 12.9716, lon: 77.5946, spoke_km: 100, bearing: 25 },
+  // Rotate Anantapur stub east toward Kurnool / Hyderabad
+  { name: 'Anantapur',    state: 'Andhra Pradesh', lat: 14.6819, lon: 77.6006, spoke_km: 60, bearing: 85 },
+  // Rotate Kadapa stub north-north-west toward Kurnool
+  { name: 'Kadapa',       state: 'Andhra Pradesh', lat: 14.4673, lon: 78.8242, spoke_km: 50, bearing: 335 },
   { name: 'Sri City',     state: 'Andhra Pradesh', lat: 13.4000, lon: 80.0000, spoke_km: 70, bearing: 45 }
 ];
 
@@ -16,7 +20,7 @@ var MAP_DATA_PROJECT_CITIES = [
   { client:'NCC',                work:'Urban Storm Drainage, Warangal',                       state:'Telangana',      lat:17.9784, lon:79.5941, length_m:6900,  dia_mm:900,  cls:'NP3', year:2017, spoke_km:60, bearing:210 },
   { client:'MEIL',               work:'Irrigation Pressure Main, East Godavari',              state:'Andhra Pradesh', lat:16.9891, lon:82.2475, length_m:9600,  dia_mm:1000, cls:'P2',  year:2018, spoke_km:70, bearing:350 },
   { client:'APSIDC',             work:'Lift Irrigation Scheme, Kurnool',                      state:'Andhra Pradesh', lat:15.8281, lon:78.0373, length_m:12000, dia_mm:1200, cls:'P3', year:2016, spoke_km:80, bearing:145 },
-  { client:'NTPC',               work:'Plant Utility Drainage, Hyderabad',                    state:'Telangana',      lat:17.4399, lon:78.3489, length_m:3600,  dia_mm:700,  cls:'NP3', year:2014, spoke_km:50, bearing:300 },
+  { client:'NTPC',               work:'Plant Utility Drainage, Hyderabad',                    state:'Telangana',      lat:17.4399, lon:78.3489, length_m:3600,  dia_mm:700,  cls:'NP3', year:2014, spoke_km:50, bearing:55 },
   { client:'Tata Projects',      work:'Infrastructure Drainage Works, Hyderabad region',      state:'Telangana',      lat:17.3800, lon:78.4800, length_m:4200,  dia_mm:800,  cls:'NP3', year:2017, spoke_km:50, bearing:30 },
   { client:'Shapoorji Pallonji', work:'Building Services Drainage, Hyderabad region',         state:'Telangana',      lat:17.4500, lon:78.3800, length_m:2800,  dia_mm:600,  cls:'NP2', year:2016, spoke_km:50, bearing:110 },
   { client:'Dilip Buildcon',     work:'Highway Drainage, East Godavari',                      state:'Andhra Pradesh', lat:17.3616, lon:82.5449, length_m:4700,  dia_mm:900,  cls:'NP3', year:2017, spoke_km:60, bearing:290 },
