@@ -1,4 +1,4 @@
-/* map.js v2.7 — orange factories, green project/delivery dots, orange corridors + road-shaped length indicators */
+/* map.js v2.8 — orange factories, green project/delivery dots, stronger road-shaped length indicators */
 (function () {
 
 var MAP_DATA = {
@@ -96,21 +96,21 @@ function fmtLen(m) { return m >= 1000 ? (m / 1000).toFixed(1) + ' km' : m + ' m'
 
 // Draw a short, road-shaped polyline near the location instead of a straight radial spoke
 function addRoadSegment(map, lat, lon, km, bearingDeg) {
-  var half = (km / 111) / 2; // rough degrees for half length
+  var half = (km / 111); // full visual length in degrees (rough)
   var rad = (bearingDeg || 0) * Math.PI / 180;
   var dx = Math.cos(rad) * half;
   var dy = Math.sin(rad) * half;
   var pr = rad + Math.PI / 2; // perpendicular
-  var px = Math.cos(pr) * half * 0.4;
-  var py = Math.sin(pr) * half * 0.4;
+  var px = Math.cos(pr) * half * 0.5;
+  var py = Math.sin(pr) * half * 0.5;
 
   var mid = [lat, lon];
-  var p1 = [mid[0] - dy * 0.8 - py, mid[1] - dx * 0.8 - px];
+  var p1 = [mid[0] - dy * 0.6 - py, mid[1] - dx * 0.6 - px];
   var p2 = [mid[0] + py,           mid[1] + px];
-  var p3 = [mid[0] + dy * 0.8 + py, mid[1] + dx * 0.8 + px];
+  var p3 = [mid[0] + dy * 0.6 + py, mid[1] + dx * 0.6 + px];
 
   L.polyline([p1, p2, p3], {
-    color:'#e07b00', weight:3, opacity:0.85, lineCap:'round', lineJoin:'round'
+    color:'#f58a1f', weight:4, opacity:0.95, lineCap:'round', lineJoin:'round'
   }).addTo(map);
 }
 
@@ -185,7 +185,7 @@ function initMap() {
       bar('#e07b00')+'<span style="color:#111">NH & project corridors</span><br>'+
       dot('#f5a623')+'<span style="color:#111">Factory</span><br>'+
       dot('#0e9a6e')+'<span style="color:#111">Project / delivery location</span><br>'+
-      '<span style="display:inline-block;width:22px;height:3px;background:#e07b00;border-radius:2px;vertical-align:middle;margin-right:7px"></span><span style="color:#111">Pipe length along nearby road (~50–100 km)</span><br>'+
+      '<span style="display:inline-block;width:22px;height:4px;background:#f58a1f;border-radius:2px;vertical-align:middle;margin-right:7px"></span><span style="color:#111">Pipe length along nearby road (~50–100 km)</span><br>'+
       '<div style="font-size:10px;color:#888;margin-top:2px">Orange halo = indicative ~350km supply radius</div>';
     return div;
   };
