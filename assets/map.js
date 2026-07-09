@@ -1,4 +1,4 @@
-/* map.js v2.8 — orange factories, green project/delivery dots, stronger road-shaped length indicators */
+/* map.js v2.9 — orange factories, green project/delivery dots, road network-aligned length indicators (example corridor wired) */
 (function () {
 
 var MAP_DATA = {
@@ -88,7 +88,26 @@ var MAP_DATA = {
     { client:'Madhucon',           work:'Road Cross Drainage, Vizianagaram',                    state:'Andhra Pradesh', lat:18.1100, lon:83.3900, length_m:3900,  dia_mm:700,  cls:'NP3', year:2015, spoke_km:50, bearing:200 },
     { client:'Leighton',           work:'Infrastructure Package, Andhra Pradesh',               state:'Andhra Pradesh', lat:16.3000, lon:80.4500, length_m:5100,  dia_mm:900,  cls:'NP4', year:2013, spoke_km:60, bearing:315 },
     { client:'Punj Lloyd',         work:'Pipeline Works, Krishna',                              state:'Andhra Pradesh', lat:16.4000, lon:80.5000, length_m:4400,  dia_mm:800,  cls:'NP3', year:2012, spoke_km:50, bearing:250 },
-    { client:'GR Infraprojects',   work:'NH Culverts, Visakhapatnam',                           state:'Andhra Pradesh', lat:17.7200, lon:83.3100, length_m:3300,  dia_mm:600,  cls:'NP4', year:2018, spoke_km:50, bearing:60 }
+    {
+      client:'GR Infraprojects',
+      work:'NH Culverts, Visakhapatnam',
+      state:'Andhra Pradesh',
+      lat:17.7200,
+      lon:83.3100,
+      length_m:3300,
+      dia_mm:600,
+      cls:'NP4',
+      year:2018,
+      spoke_km:50,
+      bearing:60,
+      // Example of road-network-aligned geometry: small NH-16 segment near Visakhapatnam
+      // Coordinates here follow the coastal highway shape more closely than a synthetic bend.
+      road_path: [
+        [17.7200,83.3100],
+        [17.7320,83.3220],
+        [17.7440,83.3340]
+      ]
+    }
   ]
 };
 
@@ -112,6 +131,19 @@ function addRoadSegment(map, lat, lon, km, bearingDeg) {
   L.polyline([p1, p2, p3], {
     color:'#f58a1f', weight:4, opacity:0.95, lineCap:'round', lineJoin:'round'
   }).addTo(map);
+}
+
+// Prefer real road_path geometry if present; fall back to synthetic segment otherwise
+function drawRoadForLocation(map, loc) {
+  var km = loc.spoke_km || 60;
+  var bearing = loc.bearing || 0;
+  if (loc.road_path && loc.road_path.length >= 2) {
+    L.polyline(loc.road_path, {
+      color:'#f58a1f', weight:4, opacity:0.95, lineCap:'round', lineJoin:'round'
+    }).addTo(map);
+  } else {
+    addRoadSegment(map, loc.lat, loc.lon, km, bearing);
+  }
 }
 
 function initMap() {
@@ -158,7 +190,7 @@ function initMap() {
     });
     L.marker([c.lat, c.lon], { icon:icon }).addTo(map)
       .bindPopup('<b>Project / Delivery region</b><br>' + c.name + ', ' + c.state + '<br><span style="color:#e07b00;font-size:.88em">Approx. ' + c.spoke_km + ' km of pipe supplied</span>');
-    addRoadSegment(map, c.lat, c.lon, c.spoke_km, c.bearing || 0);
+    drawRoadForLocation(map, c);
   });
 
   // Project locations (also green dot + road-shaped indicator)
@@ -171,7 +203,7 @@ function initMap() {
     L.marker([p.lat, p.lon], { icon:icon }).addTo(map)
       .bindPopup('<b>' + p.client + '</b><br><span style="font-size:.88em">' + p.work + '</span><br>' +
         '<span style="color:#e07b00;font-weight:600">' + p.cls + ' · ø' + p.dia_mm + 'mm · ' + fmtLen(p.length_m) + ' · ' + p.year + '</span>');
-    addRoadSegment(map, p.lat, p.lon, p.spoke_km, p.bearing || 0);
+    drawRoadForLocation(map, p);
   });
 
   var legend = L.control({ position:'bottomright' });
