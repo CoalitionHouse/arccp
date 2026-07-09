@@ -1,4 +1,4 @@
-/* map.js v2.6 — orange factories, green project/delivery dots, orange corridors + directional spokes */
+/* map.js v2.7 — orange factories, green project/delivery dots, orange corridors + road-shaped length indicators */
 (function () {
 
 var MAP_DATA = {
@@ -94,14 +94,24 @@ var MAP_DATA = {
 
 function fmtLen(m) { return m >= 1000 ? (m / 1000).toFixed(1) + ' km' : m + ' m'; }
 
-function addSpoke(map, lat, lon, km, bearingDeg) {
-  var half = (km / 111) / 2; // rough degrees for half the length
+// Draw a short, road-shaped polyline near the location instead of a straight radial spoke
+function addRoadSegment(map, lat, lon, km, bearingDeg) {
+  var half = (km / 111) / 2; // rough degrees for half length
   var rad = (bearingDeg || 0) * Math.PI / 180;
   var dx = Math.cos(rad) * half;
   var dy = Math.sin(rad) * half;
-  var p1 = [lat - dy, lon - dx];
-  var p2 = [lat + dy, lon + dx];
-  L.polyline([p1, p2], { color:'#e07b00', weight:3, opacity:0.85, lineCap:'round' }).addTo(map);
+  var pr = rad + Math.PI / 2; // perpendicular
+  var px = Math.cos(pr) * half * 0.4;
+  var py = Math.sin(pr) * half * 0.4;
+
+  var mid = [lat, lon];
+  var p1 = [mid[0] - dy * 0.8 - py, mid[1] - dx * 0.8 - px];
+  var p2 = [mid[0] + py,           mid[1] + px];
+  var p3 = [mid[0] + dy * 0.8 + py, mid[1] + dx * 0.8 + px];
+
+  L.polyline([p1, p2, p3], {
+    color:'#e07b00', weight:3, opacity:0.85, lineCap:'round', lineJoin:'round'
+  }).addTo(map);
 }
 
 function initMap() {
@@ -139,7 +149,7 @@ function initMap() {
       '<span style="color:#e07b00;font-weight:600">' + c.cls + ' · ø' + c.dia_mm + 'mm · ' + fmtLen(c.length_m) + ' · ' + c.year + '</span>');
   });
 
-  // Delivery regions (green dot + spoke)
+  // Delivery regions (green dot + road-shaped indicator)
   MAP_DATA.delivery_cities.forEach(function (c) {
     var icon = L.divIcon({
       className: '',
@@ -148,10 +158,10 @@ function initMap() {
     });
     L.marker([c.lat, c.lon], { icon:icon }).addTo(map)
       .bindPopup('<b>Project / Delivery region</b><br>' + c.name + ', ' + c.state + '<br><span style="color:#e07b00;font-size:.88em">Approx. ' + c.spoke_km + ' km of pipe supplied</span>');
-    addSpoke(map, c.lat, c.lon, c.spoke_km, c.bearing || 0);
+    addRoadSegment(map, c.lat, c.lon, c.spoke_km, c.bearing || 0);
   });
 
-  // Project locations (also green dot + spoke)
+  // Project locations (also green dot + road-shaped indicator)
   MAP_DATA.project_cities.forEach(function (p) {
     var icon = L.divIcon({
       className: '',
@@ -161,7 +171,7 @@ function initMap() {
     L.marker([p.lat, p.lon], { icon:icon }).addTo(map)
       .bindPopup('<b>' + p.client + '</b><br><span style="font-size:.88em">' + p.work + '</span><br>' +
         '<span style="color:#e07b00;font-weight:600">' + p.cls + ' · ø' + p.dia_mm + 'mm · ' + fmtLen(p.length_m) + ' · ' + p.year + '</span>');
-    addSpoke(map, p.lat, p.lon, p.spoke_km, p.bearing || 0);
+    addRoadSegment(map, p.lat, p.lon, p.spoke_km, p.bearing || 0);
   });
 
   var legend = L.control({ position:'bottomright' });
@@ -175,7 +185,7 @@ function initMap() {
       bar('#e07b00')+'<span style="color:#111">NH & project corridors</span><br>'+
       dot('#f5a623')+'<span style="color:#111">Factory</span><br>'+
       dot('#0e9a6e')+'<span style="color:#111">Project / delivery location</span><br>'+
-      '<span style="display:inline-block;width:22px;height:3px;background:#e07b00;border-radius:2px;vertical-align:middle;margin-right:7px"></span><span style="color:#111">Pipe length indication (~50–100 km)</span><br>'+
+      '<span style="display:inline-block;width:22px;height:3px;background:#e07b00;border-radius:2px;vertical-align:middle;margin-right:7px"></span><span style="color:#111">Pipe length along nearby road (~50–100 km)</span><br>'+
       '<div style="font-size:10px;color:#888;margin-top:2px">Orange halo = indicative ~350km supply radius</div>';
     return div;
   };
