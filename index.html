@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Amaravati RCC Pipes | RCC Hume &amp; Spun Pipe Manufacturer – AP, Telangana, Odisha, Karnataka, Chhattisgarh</title>
-  <meta name="description" content="Amaravati RCC Pipes (ARCCP) manufactures IS 458:2003 compliant RCC Hume, Spun &amp; Pressure Pipes (NP2–NP4, P1–P3) from 100mm–2200mm dia. Supplying AP, Telangana, Odisha, Karnataka &amp; Chhattisgarh. ISO 9001:2015 certified.">
+  <meta name="description" content="Amaravati RCC Pipes (ARCCP) manufactures IS 458:2003 compliant RCC Hume, Spun &amp; Pressure Pipes (NP2–NP4, P1–P3) from 100mm–2200mm dia. Supplying AP, Telangana, Odisha, Karnataka &amp; Chhattisgarh from 4 factories. ISO 9001:2015 certified.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Noto+Sans+Telugu:wght@400;600;700;800&family=Noto+Sans+Oriya:wght@400;600;700;800&family=Noto+Sans+Kannada:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
@@ -14,7 +14,6 @@
   <meta property="og:url" content="https://www.amaravatirccpipes.com/">
   <meta property="og:type" content="website">
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"ManufacturingBusiness","name":"Amaravati RCC Pipes India Private Limited","url":"https://www.amaravatirccpipes.com","description":"IS 458:2003 certified RCC Hume and Spun Pipe manufacturer supplying Andhra Pradesh, Telangana, Odisha, Karnataka and Chhattisgarh.","address":{"@type":"PostalAddress","streetAddress":"Adda Road, Velvadam Village, Mylavaram Mandal","addressLocality":"Krishna","addressRegion":"Andhra Pradesh","addressCountry":"IN"}}</script>
-  <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XKY7BDBEJ2"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -22,18 +21,19 @@
     gtag('js', new Date());
     gtag('config', 'G-XKY7BDBEJ2');
   </script>
+  <style>
+    #leaflet-map { height: 480px; min-height: 380px; width: 100%; border-radius: 12px; }
+    @media (max-width: 600px) { #leaflet-map { height: 360px; } }
+  </style>
 </head>
 <body data-i18n-base="data/i18n.json">
 
 <header class="topbar">
   <div class="container topbar-inner">
-    <!-- LOGO -->
     <a class="brand" href="index.html" id="nav_logo" data-ga-event="nav_click" data-ga-label="logo">
       <img src="assets/img/logo-ARCCP.png" alt="ARCCP Logo" class="brand-logo">
       <span class="brand-full">Amaravati RCC Pipes</span>
     </a>
-
-    <!-- LANG SWITCHER — between logo and nav on desktop -->
     <div class="lang-switcher">
       <button class="lang-toggle" id="langToggle" type="button">&#127760; <span id="langLabel">English</span></button>
       <div class="lang-menu" id="langMenu">
@@ -43,8 +43,6 @@
         <button class="lang-switch-btn" data-lang="kn" type="button">ಕನ್ನಡ</button>
       </div>
     </div>
-
-    <!-- DESKTOP NAV -->
     <nav class="nav" id="mainNav">
       <a href="#products" data-i18n="nav_products" data-ga-event="nav_click" data-ga-label="products">Products</a>
       <a href="#regions" data-i18n="nav_regions" data-ga-event="nav_click" data-ga-label="regions">Regions Served</a>
@@ -53,14 +51,10 @@
       <a href="tel:+918885222888" class="nav-call" id="navCallBtn" data-ga-event="call_click" data-ga-label="nav_call">&#128222; Call</a>
       <a href="#quote" class="nav-cta" data-i18n="nav_cta" data-ga-event="cta_click" data-ga-label="nav_quote">Request a Quotation</a>
     </nav>
-
-    <!-- HAMBURGER — far right -->
     <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation" type="button">
       <span></span><span></span><span></span>
     </button>
   </div>
-
-  <!-- MOBILE NAV OVERLAY -->
   <nav class="nav-mobile" id="navMobile" aria-hidden="true">
     <a href="#products" data-i18n="nav_products" data-ga-event="nav_click" data-ga-label="mob_products">Products</a>
     <a href="#regions" data-i18n="nav_regions" data-ga-event="nav_click" data-ga-label="mob_regions">Regions Served</a>
@@ -137,7 +131,7 @@
 <section id="map" class="section">
   <div class="container">
     <h2 data-i18n="map_h2">Factories, Supply Radius &amp; Project Sites</h2>
-    <p class="section-sub" data-i18n="map_sub">Black markers = factories with ~300km indicative supply radius. Orange markers = client project sites, sized by pipe length supplied.</p>
+    <p class="section-sub">Blue line = NH corridor where pipes were supplied. Orange glow = ~350km supply radius from 3 factories. Navy dots = project/supply locations. Green dots = delivery cities.</p>
     <div id="leaflet-map" data-path="data/projects.json"></div>
   </div>
 </section>
@@ -202,7 +196,7 @@
         <option>P1</option><option>P2</option><option>P3</option>
         <option>Half-Round / Split</option><option>Not sure – need advice</option>
       </select>
-      <input type="text" name="dia_qty" placeholder="Diameter (mm) &amp; Quantity  e.g. 900mm × 200 nos" data-i18n-placeholder="f_dia">
+      <input type="text" name="dia_qty" placeholder="Diameter (mm) &amp; Quantity  e.g. 900mm x 200 nos" data-i18n-placeholder="f_dia">
       <textarea name="message" placeholder="Additional details — project name, site location, delivery timeline…" data-i18n-placeholder="f_msg"></textarea>
       <button type="submit" class="btn btn-primary btn-block" id="quoteSubmitBtn" data-ga-event="form_submit" data-ga-label="quote_form">Send Quotation Request</button>
     </form>
@@ -215,9 +209,7 @@
       <img src="assets/img/logo-ARCCP.png" alt="ARCCP Logo" class="footer-logo">
       <h4>Amaravati RCC Pipes India Pvt Ltd</h4>
       <p>Adda Road, Velvadam Village,<br>Mylavaram Mandal, Krishna District,<br>Andhra Pradesh – 521 109</p>
-      <p style="margin-top:8px">
-        <a href="tel:+918885222888" data-ga-event="call_click" data-ga-label="footer_call">&#128222; +91 88852 22888</a>
-      </p>
+      <p style="margin-top:8px"><a href="tel:+918885222888" data-ga-event="call_click" data-ga-label="footer_call">&#128222; +91 88852 22888</a></p>
       <p><a href="mailto:info@amaravatirccpipes.com">info@amaravatirccpipes.com</a></p>
     </div>
     <div>
@@ -237,11 +229,10 @@
     </div>
   </div>
   <div class="footer-copy-bar">
-    <p data-i18n="footer_copy">© 2026 Amaravati RCC Pipes India Pvt Ltd. All rights reserved.</p>
+    <p data-i18n="footer_copy">&copy; 2026 Amaravati RCC Pipes India Pvt Ltd. All rights reserved.</p>
   </div>
 </footer>
 
-<!-- Mobile sticky bar: call + quote -->
 <div class="mobile-cta-bar">
   <a href="tel:+918885222888" class="mobile-call-btn" id="mobCallBtn" data-ga-event="call_click" data-ga-label="mobile_sticky_call">&#128222; Call</a>
   <a href="#quote" class="mobile-quote-btn" data-ga-event="cta_click" data-ga-label="mobile_sticky_quote">Request Quotation</a>
