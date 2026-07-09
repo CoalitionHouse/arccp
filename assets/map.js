@@ -1,4 +1,4 @@
-/* map.js v2.9 — orange factories, green project/delivery dots, road network-aligned length indicators (example corridor wired) */
+/* map.js v2.10 — orange factories, green project/delivery dots, road network-aligned length indicators (Madhurawada–Bheemili example) */
 (function () {
 
 var MAP_DATA = {
@@ -89,23 +89,27 @@ var MAP_DATA = {
     { client:'Leighton',           work:'Infrastructure Package, Andhra Pradesh',               state:'Andhra Pradesh', lat:16.3000, lon:80.4500, length_m:5100,  dia_mm:900,  cls:'NP4', year:2013, spoke_km:60, bearing:315 },
     { client:'Punj Lloyd',         work:'Pipeline Works, Krishna',                              state:'Andhra Pradesh', lat:16.4000, lon:80.5000, length_m:4400,  dia_mm:800,  cls:'NP3', year:2012, spoke_km:50, bearing:250 },
     {
-      client:'GR Infraprojects',
-      work:'NH Culverts, Visakhapatnam',
+      client:'AP R&B / GVMC',
+      work:'Madhurawada–Bheemili Coastal Road (~25 km)',
       state:'Andhra Pradesh',
-      lat:17.7200,
-      lon:83.3100,
-      length_m:3300,
-      dia_mm:600,
-      cls:'NP4',
-      year:2018,
-      spoke_km:50,
-      bearing:60,
-      // Example of road-network-aligned geometry: small NH-16 segment near Visakhapatnam
-      // Coordinates here follow the coastal highway shape more closely than a synthetic bend.
+      lat:17.8600,
+      lon:83.3950,
+      length_m:25000,
+      dia_mm:'600–900',
+      cls:'NP3',
+      year:'2015–2019',
+      spoke_km:25,
+      bearing:45,
+      // Example of road-network-aligned geometry: small coastal corridor segment near Madhurawada–Bheemili
+      // Coordinates approximate the coastal road curvature visible on the basemap.
       road_path: [
-        [17.7200,83.3100],
-        [17.7320,83.3220],
-        [17.7440,83.3340]
+        [17.8000,83.3600],
+        [17.8200,83.3720],
+        [17.8400,83.3840],
+        [17.8600,83.3950],
+        [17.8800,83.4050],
+        [17.9000,83.4180],
+        [17.9200,83.4300]
       ]
     }
   ]
@@ -217,7 +221,7 @@ function initMap() {
       bar('#e07b00')+'<span style="color:#111">NH & project corridors</span><br>'+
       dot('#f5a623')+'<span style="color:#111">Factory</span><br>'+
       dot('#0e9a6e')+'<span style="color:#111">Project / delivery location</span><br>'+
-      '<span style="display:inline-block;width:22px;height:4px;background:#f58a1f;border-radius:2px;vertical-align:middle;margin-right:7px"></span><span style="color:#111">Pipe length along nearby road (~50–100 km)</span><br>'+
+      '<span style="display:inline-block;width:22px;height:4px;background:#f58a1f;border-radius:2px;vertical-align:middle;margin-right:7px"></span><span style="color:#111">Pipe length along nearby road (~25–100 km)</span><br>'+
       '<div style="font-size:10px;color:#888;margin-top:2px">Orange halo = indicative ~350km supply radius</div>';
     return div;
   };
