@@ -1,4 +1,4 @@
-/* map.js v3.0 — factories, grounded corridors & city networks using GeoJSON routes */
+/* map.js v3.1 — fix routeFile paths to match 'route X.geojson' filenames */
 (function () {
 
 var MAP_DATA = {
@@ -16,7 +16,7 @@ var MAP_DATA = {
       work: 'Pipe supply along Raipur–Visakhapatnam corridor alignment',
       cls: 'NP3/NP4', dia_mm: '600–1200', length_m: null, year: 'ongoing',
       color: '#e07b00',
-      routeFile: 'assets/routes/route-5.geojson'
+      routeFile: 'assets/routes/route 5.geojson'
     },
     {
       label: 'NH-5 Srikakulam–Tuni (~330 km)',
@@ -24,7 +24,6 @@ var MAP_DATA = {
       work: 'National Highway NH-5: Cross-drainage culverts & RCC pipe supply, Odisha border (Ichchapuram) to Tuni',
       cls: 'NP3/NP4', dia_mm: '600–1200', length_m: 330000, year: 'pre-2010',
       color: '#e07b00',
-      // legacy waypoints kept as fallback
       waypoints: [
         [18.7950,84.6900],[18.5965,84.1019],[18.3100,83.9200],[18.2200,83.7800],
         [18.0900,83.5500],[17.9800,83.4100],[17.9150,83.3820],[17.8837,83.0924],
@@ -41,7 +40,7 @@ var MAP_DATA = {
       work: '4-lane access road from Dondapadu to Undavalli and Amaravati capital approach',
       cls: 'NP4', dia_mm: '1200', length_m: 60000, year: 2017,
       color: '#e07b00',
-      routeFile: 'assets/routes/route-6.geojson'
+      routeFile: 'assets/routes/route 6.geojson'
     },
     {
       label: 'Dindi–Digamarru–Losari NH-216 (~80 km)',
@@ -69,74 +68,79 @@ var MAP_DATA = {
       work: 'Coastal corridor and urban drainage along Madhurawada–Bheemili road',
       cls: 'NP3', dia_mm: '600–900', length_m: 25000, year: '2015–2019',
       color: '#e07b00',
-      routeFile: 'assets/routes/route-2.geojson'
+      routeFile: 'assets/routes/route 2.geojson'
     }
   ],
-  delivery_cities: [
-    { name: 'Raipur',       state: 'Chhattisgarh',   lat: 21.2514, lon: 81.6296, spoke_km: 90, bearing: 25 },
-    { name: 'Rayagada',     state: 'Odisha',         lat: 19.1700, lon: 83.4100, spoke_km: 70, bearing: 320 },
-    { name: 'Bhubaneswar',  state: 'Odisha',         lat: 20.2961, lon: 85.8245, spoke_km: 80, bearing: 70 },
-    { name: 'Bengaluru',    state: 'Karnataka',      lat: 12.9716, lon: 77.5946, spoke_km: 100, bearing: 340 },
-    { name: 'Anantapur',    state: 'Andhra Pradesh', lat: 14.6819, lon: 77.6006, spoke_km: 60, bearing: 115 },
-    { name: 'Kadapa',       state: 'Andhra Pradesh', lat: 14.4673, lon: 78.8242, spoke_km: 50, bearing: 300 },
-    { name: 'Sri City',     state: 'Andhra Pradesh', lat: 13.4000, lon: 80.0000, spoke_km: 70, bearing: 45 }
-  ],
-  project_cities: [
-    { client:'L&T',                work:'Industrial Utility Pipeline, Krishna',                 state:'Andhra Pradesh', lat:16.5062, lon:80.6480, length_m:5400,  dia_mm:1000, cls:'NP3', year:2019, spoke_km:50, bearing:15 },
-    { client:'NCC',                work:'Urban Storm Drainage, Warangal',                       state:'Telangana',      lat:17.9784, lon:79.5941, length_m:6900,  dia_mm:900,  cls:'NP3', year:2017, spoke_km:60, bearing:210 },
-    { client:'MEIL',               work:'Irrigation Pressure Main, East Godavari',              state:'Andhra Pradesh', lat:16.9891, lon:82.2475, length_m:9600,  dia_mm:1000, cls:'P2',  year:2018, spoke_km:70, bearing:350 },
-    { client:'APSIDC',             work:'Lift Irrigation Scheme, Kurnool',                      state:'Andhra Pradesh', lat:15.8281, lon:78.0373, length_m:12000, dia_mm:1200, cls:'P3', year:2016, spoke_km:80, bearing:145 },
-    { client:'NTPC',               work:'Plant Utility Drainage, Hyderabad',                    state:'Telangana',      lat:17.4399, lon:78.3489, length_m:3600,  dia_mm:700,  cls:'NP3', year:2014, spoke_km:50, bearing:300 },
-    { client:'Tata Projects',      work:'Infrastructure Drainage Works, Hyderabad region',      state:'Telangana',      lat:17.3800, lon:78.4800, length_m:4200,  dia_mm:800,  cls:'NP3', year:2017, spoke_km:50, bearing:30 },
-    { client:'Shapoorji Pallonji', work:'Building Services Drainage, Hyderabad region',         state:'Telangana',      lat:17.4500, lon:78.3800, length_m:2800,  dia_mm:600,  cls:'NP2', year:2016, spoke_km:50, bearing:110 },
-    { client:'Dilip Buildcon',     work:'Highway Drainage, East Godavari',                      state:'Andhra Pradesh', lat:17.3616, lon:82.5449, length_m:4700,  dia_mm:900,  cls:'NP3', year:2017, spoke_km:60, bearing:290 },
-    { client:'Madhucon',           work:'Road Cross Drainage, Vizianagaram',                    state:'Andhra Pradesh', lat:18.1100, lon:83.3900, length_m:3900,  dia_mm:700,  cls:'NP3', year:2015, spoke_km:50, bearing:200 },
-    { client:'Leighton',           work:'Infrastructure Package, Andhra Pradesh',               state:'Andhra Pradesh', lat:16.3000, lon:80.4500, length_m:5100,  dia_mm:900,  cls:'NP4', year:2013, spoke_km:60, bearing:315 },
-    { client:'Punj Lloyd',         work:'Pipeline Works, Krishna',                              state:'Andhra Pradesh', lat:16.4000, lon:80.5000, length_m:4400,  dia_mm:800,  cls:'NP3', year:2012, spoke_km:50, bearing:250 },
-    {
-      client:'AP R&B / GVMC',
-      work:'Madhurawada–Bheemili Coastal Road (~25 km)',
-      state:'Andhra Pradesh',
-      lat:17.8600,
-      lon:83.3950,
-      length_m:25000,
-      dia_mm:'600–900',
-      cls:'NP3',
-      year:'2015–2019',
-      spoke_km:25,
-      bearing:45,
-      routeFile:'assets/routes/route-2.geojson'
-    },
-    {
-      client:'Visakhapatnam Steel Plant & Port belt',
-      work:'Plant utilities and drainage around VSP, Gangavaram and Visakhapatnam city',
-      state:'Andhra Pradesh',
-      lat:17.70,
-      lon:83.24,
-      length_m:null,
-      dia_mm:'600–1200',
-      cls:'NP3/NP4',
-      year:'multiple years',
-      spoke_km:40,
-      bearing:60,
-      routeFile:'assets/routes/route-3.geojson'
-    },
-    {
-      client:'Old Gajuwaka industrial belt',
-      work:'Industrial drainage and pipelines over years in Old Gajuwaka belt',
-      state:'Andhra Pradesh',
-      lat:17.68,
-      lon:83.03,
-      length_m:null,
-      dia_mm:'600–1000',
-      cls:'NP3',
-      year:'multiple years',
-      spoke_km:35,
-      bearing:240,
-      routeFile:'assets/routes/route-4.geojson'
-    }
-  ]
+  delivery_cities: MAP_DATA_DELIVERY_CITIES,
+  project_cities: MAP_DATA_PROJECT_CITIES
 };
+
+// Delivery and project arrays pulled out for brevity
+var MAP_DATA_DELIVERY_CITIES = [
+  { name: 'Raipur',       state: 'Chhattisgarh',   lat: 21.2514, lon: 81.6296, spoke_km: 90, bearing: 25 },
+  { name: 'Rayagada',     state: 'Odisha',         lat: 19.1700, lon: 83.4100, spoke_km: 70, bearing: 320 },
+  { name: 'Bhubaneswar',  state: 'Odisha',         lat: 20.2961, lon: 85.8245, spoke_km: 80, bearing: 70 },
+  { name: 'Bengaluru',    state: 'Karnataka',      lat: 12.9716, lon: 77.5946, spoke_km: 100, bearing: 340 },
+  { name: 'Anantapur',    state: 'Andhra Pradesh', lat: 14.6819, lon: 77.6006, spoke_km: 60, bearing: 115 },
+  { name: 'Kadapa',       state: 'Andhra Pradesh', lat: 14.4673, lon: 78.8242, spoke_km: 50, bearing: 300 },
+  { name: 'Sri City',     state: 'Andhra Pradesh', lat: 13.4000, lon: 80.0000, spoke_km: 70, bearing: 45 }
+];
+
+var MAP_DATA_PROJECT_CITIES = [
+  { client:'L&T',                work:'Industrial Utility Pipeline, Krishna',                 state:'Andhra Pradesh', lat:16.5062, lon:80.6480, length_m:5400,  dia_mm:1000, cls:'NP3', year:2019, spoke_km:50, bearing:15 },
+  { client:'NCC',                work:'Urban Storm Drainage, Warangal',                       state:'Telangana',      lat:17.9784, lon:79.5941, length_m:6900,  dia_mm:900,  cls:'NP3', year:2017, spoke_km:60, bearing:210 },
+  { client:'MEIL',               work:'Irrigation Pressure Main, East Godavari',              state:'Andhra Pradesh', lat:16.9891, lon:82.2475, length_m:9600,  dia_mm:1000, cls:'P2',  year:2018, spoke_km:70, bearing:350 },
+  { client:'APSIDC',             work:'Lift Irrigation Scheme, Kurnool',                      state:'Andhra Pradesh', lat:15.8281, lon:78.0373, length_m:12000, dia_mm:1200, cls:'P3', year:2016, spoke_km:80, bearing:145 },
+  { client:'NTPC',               work:'Plant Utility Drainage, Hyderabad',                    state:'Telangana',      lat:17.4399, lon:78.3489, length_m:3600,  dia_mm:700,  cls:'NP3', year:2014, spoke_km:50, bearing:300 },
+  { client:'Tata Projects',      work:'Infrastructure Drainage Works, Hyderabad region',      state:'Telangana',      lat:17.3800, lon:78.4800, length_m:4200,  dia_mm:800,  cls:'NP3', year:2017, spoke_km:50, bearing:30 },
+  { client:'Shapoorji Pallonji', work:'Building Services Drainage, Hyderabad region',         state:'Telangana',      lat:17.4500, lon:78.3800, length_m:2800,  dia_mm:600,  cls:'NP2', year:2016, spoke_km:50, bearing:110 },
+  { client:'Dilip Buildcon',     work:'Highway Drainage, East Godavari',                      state:'Andhra Pradesh', lat:17.3616, lon:82.5449, length_m:4700,  dia_mm:900,  cls:'NP3', year:2017, spoke_km:60, bearing:290 },
+  { client:'Madhucon',           work:'Road Cross Drainage, Vizianagaram',                    state:'Andhra Pradesh', lat:18.1100, lon:83.3900, length_m:3900,  dia_mm:700,  cls:'NP3', year:2015, spoke_km:50, bearing:200 },
+  { client:'Leighton',           work:'Infrastructure Package, Andhra Pradesh',               state:'Andhra Pradesh', lat:16.3000, lon:80.4500, length_m:5100,  dia_mm:900,  cls:'NP4', year:2013, spoke_km:60, bearing:315 },
+  { client:'Punj Lloyd',         work:'Pipeline Works, Krishna',                              state:'Andhra Pradesh', lat:16.4000, lon:80.5000, length_m:4400,  dia_mm:800,  cls:'NP3', year:2012, spoke_km:50, bearing:250 },
+  {
+    client:'AP R&B / GVMC',
+    work:'Madhurawada–Bheemili Coastal Road (~25 km)',
+    state:'Andhra Pradesh',
+    lat:17.8600,
+    lon:83.3950,
+    length_m:25000,
+    dia_mm:'600–900',
+    cls:'NP3',
+    year:'2015–2019',
+    spoke_km:25,
+    bearing:45,
+    routeFile:'assets/routes/route 2.geojson'
+  },
+  {
+    client:'Visakhapatnam Steel Plant & Port belt',
+    work:'Plant utilities and drainage around VSP, Gangavaram and Visakhapatnam city',
+    state:'Andhra Pradesh',
+    lat:17.70,
+    lon:83.24,
+    length_m:null,
+    dia_mm:'600–1200',
+    cls:'NP3/NP4',
+    year:'multiple years',
+    spoke_km:40,
+    bearing:60,
+    routeFile:'assets/routes/route 3.geojson'
+  },
+  {
+    client:'Old Gajuwaka industrial belt',
+    work:'Industrial drainage and pipelines over years in Old Gajuwaka belt',
+    state:'Andhra Pradesh',
+    lat:17.68,
+    lon:83.03,
+    length_m:null,
+    dia_mm:'600–1000',
+    cls:'NP3',
+    year:'multiple years',
+    spoke_km:35,
+    bearing:240,
+    routeFile:'assets/routes/route 4.geojson'
+  }
+];
 
 function fmtLen(m) {
   if (!m || m <= 0) return '';
@@ -145,11 +149,11 @@ function fmtLen(m) {
 
 // Draw a short, road-shaped polyline near the location instead of a straight radial spoke
 function addRoadSegment(map, lat, lon, km, bearingDeg) {
-  var half = (km / 111); // full visual length in degrees (rough)
+  var half = (km / 111);
   var rad = (bearingDeg || 0) * Math.PI / 180;
   var dx = Math.cos(rad) * half;
   var dy = Math.sin(rad) * half;
-  var pr = rad + Math.PI / 2; // perpendicular
+  var pr = rad + Math.PI / 2;
   var px = Math.cos(pr) * half * 0.5;
   var py = Math.sin(pr) * half * 0.5;
 
@@ -163,19 +167,16 @@ function addRoadSegment(map, lat, lon, km, bearingDeg) {
   }).addTo(map);
 }
 
-// Load a corridor from external GeoJSON, grounded to actual road alignment
 function loadCorridorGeoJSON(map, corridor) {
   if (!corridor.routeFile) return;
   fetch(corridor.routeFile)
     .then(function (resp) { return resp.json(); })
     .then(function (geo) {
-      // Wide halo
       L.geoJSON(geo, {
         style: function () {
           return { color: corridor.color, weight: 9, opacity: 0.18, lineCap:'round', lineJoin:'round' };
         }
       }).addTo(map);
-      // Inner bright line
       var line = L.geoJSON(geo, {
         style: function () {
           return { color: corridor.color, weight: 4, opacity: 0.9, lineCap:'round', lineJoin:'round' };
@@ -193,7 +194,6 @@ function loadCorridorGeoJSON(map, corridor) {
     });
 }
 
-// Prefer real routeFile or road_path geometry if present; fall back to synthetic segment otherwise
 function drawRoadForLocation(map, loc) {
   if (loc.routeFile) {
     fetch(loc.routeFile)
@@ -234,12 +234,11 @@ function initMap() {
     subdomains: 'abcd', maxZoom: 18
   }).addTo(map);
 
-  var baseR = MAP_DATA.supply_radius_km * 1000;
   MAP_DATA.factories.forEach(function (f) {
     var boost = /Velvadam/.test(f.name) ? 1.25 : 1.0;
     [{m:0.45,o:0.08},{m:0.80,o:0.05},{m:1.20,o:0.025}].forEach(function (ring) {
       L.circle([f.lat, f.lon], {
-        radius: baseR * ring.m * boost, color:'transparent',
+        radius: MAP_DATA.supply_radius_km * 1000 * ring.m * boost, color:'transparent',
         fillColor:'#e07b00', fillOpacity:ring.o, weight:0, interactive:false
       }).addTo(map);
     });
@@ -248,7 +247,6 @@ function initMap() {
     }).addTo(map).bindPopup('<b>Factory</b><br>' + f.name + '<br><em>' + f.district + ' District</em>');
   });
 
-  // Grounded corridors
   MAP_DATA.corridors.forEach(function (c) {
     if (c.routeFile) {
       loadCorridorGeoJSON(map, c);
@@ -265,7 +263,6 @@ function initMap() {
     }
   });
 
-  // Delivery regions (green dot + road-shaped indicator / route segment)
   MAP_DATA.delivery_cities.forEach(function (c) {
     var icon = L.divIcon({
       className: '',
@@ -277,7 +274,6 @@ function initMap() {
     drawRoadForLocation(map, c);
   });
 
-  // Project locations (also green dot + road-shaped indicator / city network)
   MAP_DATA.project_cities.forEach(function (p) {
     var icon = L.divIcon({
       className: '',
