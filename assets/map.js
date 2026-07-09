@@ -1,4 +1,4 @@
-/* map.js v2.10 — orange factories, green project/delivery dots, road network-aligned length indicators (Madhurawada–Bheemili example) */
+/* map.js v2.11 — orange factories, green project/delivery dots, road network-aligned length indicators (Madhurawada–Bheemili styled to stand out) */
 (function () {
 
 var MAP_DATA = {
@@ -103,13 +103,10 @@ var MAP_DATA = {
       // Example of road-network-aligned geometry: small coastal corridor segment near Madhurawada–Bheemili
       // Coordinates approximate the coastal road curvature visible on the basemap.
       road_path: [
-        [17.8000,83.3600],
         [17.8200,83.3720],
         [17.8400,83.3840],
         [17.8600,83.3950],
-        [17.8800,83.4050],
-        [17.9000,83.4180],
-        [17.9200,83.4300]
+        [17.8800,83.4050]
       ]
     }
   ]
@@ -143,7 +140,7 @@ function drawRoadForLocation(map, loc) {
   var bearing = loc.bearing || 0;
   if (loc.road_path && loc.road_path.length >= 2) {
     L.polyline(loc.road_path, {
-      color:'#f58a1f', weight:4, opacity:0.95, lineCap:'round', lineJoin:'round'
+      color:'#ffffff', weight:5, opacity:0.9, lineCap:'round', lineJoin:'round', dashArray:'6,4'
     }).addTo(map);
   } else {
     addRoadSegment(map, loc.lat, loc.lon, km, bearing);
@@ -178,11 +175,15 @@ function initMap() {
 
   MAP_DATA.corridors.forEach(function (c) {
     var ll = c.waypoints.map(function (w) { return [w[0], w[1]]; });
+    // Wide, low-opacity halo for all corridors
     L.polyline(ll, { color:c.color, weight:9, opacity:0.18, lineCap:'round', lineJoin:'round' }).addTo(map);
-    var line = L.polyline(ll, { color:c.color, weight:4, opacity:0.9, lineCap:'round', lineJoin:'round' }).addTo(map);
-    line.bindPopup('<b>' + c.label + '</b><br><span style="color:#444">' + c.client + '</span><br>' +
-      '<span style="font-size:.88em;color:#666">' + c.work + '</span><br>' +
-      '<span style="color:#e07b00;font-weight:600">' + c.cls + ' · ø' + c.dia_mm + 'mm · ' + fmtLen(c.length_m) + ' · ' + c.year + '</span>');
+    // Inner bright line for all except Madhurawada–Bheemili, where the project road_path will act as the primary highlight
+    if (c.label !== 'Madhurawada–Bheemili Coastal Road (~25 km)') {
+      var line = L.polyline(ll, { color:c.color, weight:4, opacity:0.9, lineCap:'round', lineJoin:'round' }).addTo(map);
+      line.bindPopup('<b>' + c.label + '</b><br><span style="color:#444">' + c.client + '</span><br>' +
+        '<span style="font-size:.88em;color:#666">' + c.work + '</span><br>' +
+        '<span style="color:#e07b00;font-weight:600">' + c.cls + ' · ø' + c.dia_mm + 'mm · ' + fmtLen(c.length_m) + ' · ' + c.year + '</span>');
+    }
   });
 
   // Delivery regions (green dot + road-shaped indicator)
@@ -221,7 +222,7 @@ function initMap() {
       bar('#e07b00')+'<span style="color:#111">NH & project corridors</span><br>'+
       dot('#f5a623')+'<span style="color:#111">Factory</span><br>'+
       dot('#0e9a6e')+'<span style="color:#111">Project / delivery location</span><br>'+
-      '<span style="display:inline-block;width:22px;height:4px;background:#f58a1f;border-radius:2px;vertical-align:middle;margin-right:7px"></span><span style="color:#111">Pipe length along nearby road (~25–100 km)</span><br>'+
+      '<span style="display:inline-block;width:22px;height:5px;background:#ffffff;border-radius:2px;border:1px solid #f58a1f;vertical-align:middle;margin-right:7px"></span><span style="color:#111">Pipe length along nearby road (~25–100 km)</span><br>'+
       '<div style="font-size:10px;color:#888;margin-top:2px">Orange halo = indicative ~350km supply radius</div>';
     return div;
   };
