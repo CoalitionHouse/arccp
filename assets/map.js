@@ -1,4 +1,4 @@
-/* map.js v2.11 — orange factories, green project/delivery dots, road network-aligned length indicators (Madhurawada–Bheemili styled to stand out) */
+/* map.js v3.0 — factories, grounded corridors & city networks using GeoJSON routes */
 (function () {
 
 var MAP_DATA = {
@@ -11,11 +11,20 @@ var MAP_DATA = {
   ],
   corridors: [
     {
+      label: 'Raipur–Visakhapatnam corridor',
+      client: 'Expressway / NH works',
+      work: 'Pipe supply along Raipur–Visakhapatnam corridor alignment',
+      cls: 'NP3/NP4', dia_mm: '600–1200', length_m: null, year: 'ongoing',
+      color: '#e07b00',
+      routeFile: 'assets/routes/route-5.geojson'
+    },
+    {
       label: 'NH-5 Srikakulam–Tuni (~330 km)',
       client: 'NHAI',
       work: 'National Highway NH-5: Cross-drainage culverts & RCC pipe supply, Odisha border (Ichchapuram) to Tuni',
       cls: 'NP3/NP4', dia_mm: '600–1200', length_m: 330000, year: 'pre-2010',
       color: '#e07b00',
+      // legacy waypoints kept as fallback
       waypoints: [
         [18.7950,84.6900],[18.5965,84.1019],[18.3100,83.9200],[18.2200,83.7800],
         [18.0900,83.5500],[17.9800,83.4100],[17.9150,83.3820],[17.8837,83.0924],
@@ -32,9 +41,7 @@ var MAP_DATA = {
       work: '4-lane access road from Dondapadu to Undavalli and Amaravati capital approach',
       cls: 'NP4', dia_mm: '1200', length_m: 60000, year: 2017,
       color: '#e07b00',
-      waypoints: [
-        [16.5100,80.5600],[16.4950,80.5750],[16.4850,80.5950],[16.4950,80.6200],[16.5200,80.6350]
-      ]
+      routeFile: 'assets/routes/route-6.geojson'
     },
     {
       label: 'Dindi–Digamarru–Losari NH-216 (~80 km)',
@@ -62,9 +69,7 @@ var MAP_DATA = {
       work: 'Coastal corridor and urban drainage along Madhurawada–Bheemili road',
       cls: 'NP3', dia_mm: '600–900', length_m: 25000, year: '2015–2019',
       color: '#e07b00',
-      waypoints: [
-        [17.8000,83.3600],[17.8400,83.3800],[17.8800,83.4050],[17.9200,83.4300]
-      ]
+      routeFile: 'assets/routes/route-2.geojson'
     }
   ],
   delivery_cities: [
@@ -100,19 +105,43 @@ var MAP_DATA = {
       year:'2015–2019',
       spoke_km:25,
       bearing:45,
-      // Example of road-network-aligned geometry: small coastal corridor segment near Madhurawada–Bheemili
-      // Coordinates approximate the coastal road curvature visible on the basemap.
-      road_path: [
-        [17.8200,83.3720],
-        [17.8400,83.3840],
-        [17.8600,83.3950],
-        [17.8800,83.4050]
-      ]
+      routeFile:'assets/routes/route-2.geojson'
+    },
+    {
+      client:'Visakhapatnam Steel Plant & Port belt',
+      work:'Plant utilities and drainage around VSP, Gangavaram and Visakhapatnam city',
+      state:'Andhra Pradesh',
+      lat:17.70,
+      lon:83.24,
+      length_m:null,
+      dia_mm:'600–1200',
+      cls:'NP3/NP4',
+      year:'multiple years',
+      spoke_km:40,
+      bearing:60,
+      routeFile:'assets/routes/route-3.geojson'
+    },
+    {
+      client:'Old Gajuwaka industrial belt',
+      work:'Industrial drainage and pipelines over years in Old Gajuwaka belt',
+      state:'Andhra Pradesh',
+      lat:17.68,
+      lon:83.03,
+      length_m:null,
+      dia_mm:'600–1000',
+      cls:'NP3',
+      year:'multiple years',
+      spoke_km:35,
+      bearing:240,
+      routeFile:'assets/routes/route-4.geojson'
     }
   ]
 };
 
-function fmtLen(m) { return m >= 1000 ? (m / 1000).toFixed(1) + ' km' : m + ' m'; }
+function fmtLen(m) {
+  if (!m || m <= 0) return '';
+  return m >= 1000 ? (m / 1000).toFixed(1) + ' km' : m + ' m';
+}
 
 // Draw a short, road-shaped polyline near the location instead of a straight radial spoke
 function addRoadSegment(map, lat, lon, km, bearingDeg) {
@@ -134,8 +163,54 @@ function addRoadSegment(map, lat, lon, km, bearingDeg) {
   }).addTo(map);
 }
 
-// Prefer real road_path geometry if present; fall back to synthetic segment otherwise
+// Load a corridor from external GeoJSON, grounded to actual road alignment
+function loadCorridorGeoJSON(map, corridor) {
+  if (!corridor.routeFile) return;
+  fetch(corridor.routeFile)
+    .then(function (resp) { return resp.json(); })
+    .then(function (geo) {
+      // Wide halo
+      L.geoJSON(geo, {
+        style: function () {
+          return { color: corridor.color, weight: 9, opacity: 0.18, lineCap:'round', lineJoin:'round' };
+        }
+      }).addTo(map);
+      // Inner bright line
+      var line = L.geoJSON(geo, {
+        style: function () {
+          return { color: corridor.color, weight: 4, opacity: 0.9, lineCap:'round', lineJoin:'round' };
+        }
+      }).addTo(map);
+      var lenLabel = fmtLen(corridor.length_m);
+      var clsDia = corridor.cls + ' · ø' + corridor.dia_mm + 'mm';
+      var meta = clsDia + (lenLabel ? ' · ' + lenLabel : '') + ' · ' + corridor.year;
+      line.bindPopup('<b>' + corridor.label + '</b><br><span style="color:#444">' + corridor.client + '</span><br>' +
+        '<span style="font-size:.88em;color:#666">' + corridor.work + '</span><br>' +
+        '<span style="color:#e07b00;font-weight:600">' + meta + '</span>');
+    })
+    .catch(function (err) {
+      console.error('Failed to load corridor route', corridor.routeFile, err);
+    });
+}
+
+// Prefer real routeFile or road_path geometry if present; fall back to synthetic segment otherwise
 function drawRoadForLocation(map, loc) {
+  if (loc.routeFile) {
+    fetch(loc.routeFile)
+      .then(function (resp) { return resp.json(); })
+      .then(function (geo) {
+        L.geoJSON(geo, {
+          style: function () {
+            return { color: '#f58a1f', weight: 4, opacity: 0.9, lineCap:'round', lineJoin:'round' };
+          }
+        }).addTo(map);
+      })
+      .catch(function (err) {
+        console.error('Failed to load project route', loc.routeFile, err);
+      });
+    return;
+  }
+
   var km = loc.spoke_km || 60;
   var bearing = loc.bearing || 0;
   if (loc.road_path && loc.road_path.length >= 2) {
@@ -173,20 +248,24 @@ function initMap() {
     }).addTo(map).bindPopup('<b>Factory</b><br>' + f.name + '<br><em>' + f.district + ' District</em>');
   });
 
+  // Grounded corridors
   MAP_DATA.corridors.forEach(function (c) {
-    var ll = c.waypoints.map(function (w) { return [w[0], w[1]]; });
-    // Wide, low-opacity halo for all corridors
-    L.polyline(ll, { color:c.color, weight:9, opacity:0.18, lineCap:'round', lineJoin:'round' }).addTo(map);
-    // Inner bright line for all except Madhurawada–Bheemili, where the project road_path will act as the primary highlight
-    if (c.label !== 'Madhurawada–Bheemili Coastal Road (~25 km)') {
+    if (c.routeFile) {
+      loadCorridorGeoJSON(map, c);
+    } else if (c.waypoints && c.waypoints.length) {
+      var ll = c.waypoints.map(function (w) { return [w[0], w[1]]; });
+      L.polyline(ll, { color:c.color, weight:9, opacity:0.18, lineCap:'round', lineJoin:'round' }).addTo(map);
       var line = L.polyline(ll, { color:c.color, weight:4, opacity:0.9, lineCap:'round', lineJoin:'round' }).addTo(map);
+      var lenLabel = fmtLen(c.length_m);
+      var clsDia = c.cls + ' · ø' + c.dia_mm + 'mm';
+      var meta = clsDia + (lenLabel ? ' · ' + lenLabel : '') + ' · ' + c.year;
       line.bindPopup('<b>' + c.label + '</b><br><span style="color:#444">' + c.client + '</span><br>' +
         '<span style="font-size:.88em;color:#666">' + c.work + '</span><br>' +
-        '<span style="color:#e07b00;font-weight:600">' + c.cls + ' · ø' + c.dia_mm + 'mm · ' + fmtLen(c.length_m) + ' · ' + c.year + '</span>');
+        '<span style="color:#e07b00;font-weight:600">' + meta + '</span>');
     }
   });
 
-  // Delivery regions (green dot + road-shaped indicator)
+  // Delivery regions (green dot + road-shaped indicator / route segment)
   MAP_DATA.delivery_cities.forEach(function (c) {
     var icon = L.divIcon({
       className: '',
@@ -198,7 +277,7 @@ function initMap() {
     drawRoadForLocation(map, c);
   });
 
-  // Project locations (also green dot + road-shaped indicator)
+  // Project locations (also green dot + road-shaped indicator / city network)
   MAP_DATA.project_cities.forEach(function (p) {
     var icon = L.divIcon({
       className: '',
@@ -207,7 +286,12 @@ function initMap() {
     });
     L.marker([p.lat, p.lon], { icon:icon }).addTo(map)
       .bindPopup('<b>' + p.client + '</b><br><span style="font-size:.88em">' + p.work + '</span><br>' +
-        '<span style="color:#e07b00;font-weight:600">' + p.cls + ' · ø' + p.dia_mm + 'mm · ' + fmtLen(p.length_m) + ' · ' + p.year + '</span>');
+        (function () {
+          var lenLabel = fmtLen(p.length_m);
+          var clsDia = p.cls + ' · ø' + p.dia_mm + 'mm';
+          var meta = clsDia + (lenLabel ? ' · ' + lenLabel : '') + ' · ' + p.year;
+          return '<span style="color:#e07b00;font-weight:600">' + meta + '</span>';
+        })());
     drawRoadForLocation(map, p);
   });
 
@@ -222,7 +306,7 @@ function initMap() {
       bar('#e07b00')+'<span style="color:#111">NH & project corridors</span><br>'+
       dot('#f5a623')+'<span style="color:#111">Factory</span><br>'+
       dot('#0e9a6e')+'<span style="color:#111">Project / delivery location</span><br>'+
-      '<span style="display:inline-block;width:22px;height:5px;background:#ffffff;border-radius:2px;border:1px solid #f58a1f;vertical-align:middle;margin-right:7px"></span><span style="color:#111">Pipe length along nearby road (~25–100 km)</span><br>'+
+      '<span style="display:inline-block;width:22px;height:5px;background:#ffffff;border-radius:2px;border:1px solid #f58a1f;vertical-align:middle;margin-right:7px"></span><span style="color:#111">Pipe length / city network along road (~25–100 km)</span><br>'+
       '<div style="font-size:10px;color:#888;margin-top:2px">Orange halo = indicative ~350km supply radius</div>';
     return div;
   };
