@@ -1,81 +1,6 @@
-/* map.js v3.1 — fix routeFile paths to match 'route X.geojson' filenames */
+/* map.js v3.2 — wire NH-5 and corridors to route-*.geojson filenames */
 (function () {
 
-var MAP_DATA = {
-  supply_radius_km: 350,
-  factories: [
-    { name: 'Amaravati RCC Pipes — Velvadam', district: 'Krishna', lat: 16.7438, lon: 80.6399 },
-    { name: 'Visakha RCC Pipes — Vellanki', district: 'Visakhapatnam', lat: 17.8837, lon: 83.0924 },
-    { name: 'Visakha RCC Pipes — Rajula Tallavalasa', district: 'Visakhapatnam', lat: 17.9150, lon: 83.3820 },
-    { name: 'Visakha RCC Pipes — Peddabammidi', district: 'Srikakulam', lat: 18.5965, lon: 84.1019 }
-  ],
-  corridors: [
-    {
-      label: 'Raipur–Visakhapatnam corridor',
-      client: 'Expressway / NH works',
-      work: 'Pipe supply along Raipur–Visakhapatnam corridor alignment',
-      cls: 'NP3/NP4', dia_mm: '600–1200', length_m: null, year: 'ongoing',
-      color: '#e07b00',
-      routeFile: 'assets/routes/route 5.geojson'
-    },
-    {
-      label: 'NH-5 Srikakulam–Tuni (~330 km)',
-      client: 'NHAI',
-      work: 'National Highway NH-5: Cross-drainage culverts & RCC pipe supply, Odisha border (Ichchapuram) to Tuni',
-      cls: 'NP3/NP4', dia_mm: '600–1200', length_m: 330000, year: 'pre-2010',
-      color: '#e07b00',
-      waypoints: [
-        [18.7950,84.6900],[18.5965,84.1019],[18.3100,83.9200],[18.2200,83.7800],
-        [18.0900,83.5500],[17.9800,83.4100],[17.9150,83.3820],[17.8837,83.0924],
-        [17.8000,82.9000],[17.7000,82.7500],[17.5600,82.5700],[17.4500,82.3000],
-        [17.3616,82.1000],[17.2600,81.9500],[17.1800,81.8000],[17.0900,81.6500],
-        [17.0200,81.5500],[16.9800,81.4500],[16.9200,81.3500],[16.8500,81.2200],
-        [16.7800,81.0800],[16.7000,80.9500],[16.6300,80.8200],[16.5800,80.7000],
-        [16.5200,80.6000],[16.3580,80.1090]
-      ]
-    },
-    {
-      label: 'Amaravati Capital Access Roads (~60 km)',
-      client: 'NCC / APCRDA / Feedback Infra',
-      work: '4-lane access road from Dondapadu to Undavalli and Amaravati capital approach',
-      cls: 'NP4', dia_mm: '1200', length_m: 60000, year: 2017,
-      color: '#e07b00',
-      routeFile: 'assets/routes/route 6.geojson'
-    },
-    {
-      label: 'Dindi–Digamarru–Losari NH-216 (~80 km)',
-      client: 'SIBMOST–TATA JV',
-      work: 'Rehabilitation and upgradation of Dindi–Digamarru–Losari section of NH-216',
-      cls: 'NP4', dia_mm: '1200', length_m: 80000, year: 2017,
-      color: '#e07b00',
-      waypoints: [
-        [16.5500,81.2500],[16.5750,81.2800],[16.6000,81.3100],[16.6300,81.3400]
-      ]
-    },
-    {
-      label: 'Visakhapatnam Steel Plant–Gangavaram Belt (~40 km)',
-      client: 'VSP / Gangavaram Port / EPCs',
-      work: 'Plant utility, drainage and port works around VSP and Gangavaram port',
-      cls: 'NP3/NP4', dia_mm: '600–1200', length_m: 40000, year: '2014–2018',
-      color: '#e07b00',
-      waypoints: [
-        [17.7700,83.2300],[17.7350,83.2450],[17.7000,83.2550],[17.6600,83.2550]
-      ]
-    },
-    {
-      label: 'Madhurawada–Bheemili Coastal Road (~25 km)',
-      client: 'AP R&B / GVMC',
-      work: 'Coastal corridor and urban drainage along Madhurawada–Bheemili road',
-      cls: 'NP3', dia_mm: '600–900', length_m: 25000, year: '2015–2019',
-      color: '#e07b00',
-      routeFile: 'assets/routes/route 2.geojson'
-    }
-  ],
-  delivery_cities: MAP_DATA_DELIVERY_CITIES,
-  project_cities: MAP_DATA_PROJECT_CITIES
-};
-
-// Delivery and project arrays pulled out for brevity
 var MAP_DATA_DELIVERY_CITIES = [
   { name: 'Raipur',       state: 'Chhattisgarh',   lat: 21.2514, lon: 81.6296, spoke_km: 90, bearing: 25 },
   { name: 'Rayagada',     state: 'Odisha',         lat: 19.1700, lon: 83.4100, spoke_km: 70, bearing: 320 },
@@ -110,7 +35,7 @@ var MAP_DATA_PROJECT_CITIES = [
     year:'2015–2019',
     spoke_km:25,
     bearing:45,
-    routeFile:'assets/routes/route 2.geojson'
+    routeFile:'assets/routes/route-2.geojson'
   },
   {
     client:'Visakhapatnam Steel Plant & Port belt',
@@ -124,7 +49,7 @@ var MAP_DATA_PROJECT_CITIES = [
     year:'multiple years',
     spoke_km:40,
     bearing:60,
-    routeFile:'assets/routes/route 3.geojson'
+    routeFile:'assets/routes/route-3.geojson'
   },
   {
     client:'Old Gajuwaka industrial belt',
@@ -138,16 +63,90 @@ var MAP_DATA_PROJECT_CITIES = [
     year:'multiple years',
     spoke_km:35,
     bearing:240,
-    routeFile:'assets/routes/route 4.geojson'
+    routeFile:'assets/routes/route-4.geojson'
   }
 ];
+
+var MAP_DATA = {
+  supply_radius_km: 350,
+  factories: [
+    { name: 'Amaravati RCC Pipes — Velvadam', district: 'Krishna', lat: 16.7438, lon: 80.6399 },
+    { name: 'Visakha RCC Pipes — Vellanki', district: 'Visakhapatnam', lat: 17.8837, lon: 83.0924 },
+    { name: 'Visakha RCC Pipes — Rajula Tallavalasa', district: 'Visakhapatnam', lat: 17.9150, lon: 83.3820 },
+    { name: 'Visakha RCC Pipes — Peddabammidi', district: 'Srikakulam', lat: 18.5965, lon: 84.1019 }
+  ],
+  corridors: [
+    {
+      label: 'Raipur–Visakhapatnam corridor',
+      client: 'Expressway / NH works',
+      work: 'Pipe supply along Raipur–Visakhapatnam corridor alignment',
+      cls: 'NP3/NP4', dia_mm: '600–1200', length_m: null, year: 'ongoing',
+      color: '#e07b00',
+      routeFile: 'assets/routes/route-5.geojson'
+    },
+    {
+      label: 'NH-5 Ichchapuram–Tuni (~330 km)',
+      client: 'NHAI',
+      work: 'National Highway NH-5: Cross-drainage culverts & RCC pipe supply, Odisha border (Ichchapuram) to Tuni',
+      cls: 'NP3/NP4', dia_mm: '600–1200', length_m: 330000, year: 'pre-2010',
+      color: '#e07b00',
+      routeFile: 'assets/routes/route-1.geojson',
+      waypoints: [
+        [18.7950,84.6900],[18.5965,84.1019],[18.3100,83.9200],[18.2200,83.7800],
+        [18.0900,83.5500],[17.9800,83.4100],[17.9150,83.3820],[17.8837,83.0924],
+        [17.8000,82.9000],[17.7000,82.7500],[17.5600,82.5700],[17.4500,82.3000],
+        [17.3616,82.1000],[17.2600,81.9500],[17.1800,81.8000],[17.0900,81.6500],
+        [17.0200,81.5500],[16.9800,81.4500],[16.9200,81.3500],[16.8500,81.2200],
+        [16.7800,81.0800],[16.7000,80.9500],[16.6300,80.8200],[16.5800,80.7000],
+        [16.5200,80.6000],[16.3580,80.1090]
+      ]
+    },
+    {
+      label: 'Amaravati Capital Access Roads (~60 km)',
+      client: 'NCC / APCRDA / Feedback Infra',
+      work: '4-lane access road from Dondapadu to Undavalli and Amaravati capital approach',
+      cls: 'NP4', dia_mm: '1200', length_m: 60000, year: 2017,
+      color: '#e07b00',
+      routeFile: 'assets/routes/route-6.geojson'
+    },
+    {
+      label: 'Dindi–Digamarru–Losari NH-216 (~80 km)',
+      client: 'SIBMOST–TATA JV',
+      work: 'Rehabilitation and upgradation of Dindi–Digamarru–Losari section of NH-216',
+      cls: 'NP4', dia_mm: '1200', length_m: 80000, year: 2017,
+      color: '#e07b00',
+      waypoints: [
+        [16.5500,81.2500],[16.5750,81.2800],[16.6000,81.3100],[16.6300,81.3400]
+      ]
+    },
+    {
+      label: 'Visakhapatnam Steel Plant–Gangavaram Belt (~40 km)',
+      client: 'VSP / Gangavaram Port / EPCs',
+      work: 'Plant utility, drainage and port works around VSP and Gangavaram port',
+      cls: 'NP3/NP4', dia_mm: '600–1200', length_m: 40000, year: '2014–2018',
+      color: '#e07b00',
+      waypoints: [
+        [17.7700,83.2300],[17.7350,83.2450],[17.7000,83.2550],[17.6600,83.2550]
+      ]
+    },
+    {
+      label: 'Madhurawada–Bheemili Coastal Road (~25 km)',
+      client: 'AP R&B / GVMC',
+      work: 'Coastal corridor and urban drainage along Madhurawada–Bheemili road',
+      cls: 'NP3', dia_mm: '600–900', length_m: 25000, year: '2015–2019',
+      color: '#e07b00',
+      routeFile: 'assets/routes/route-2.geojson'
+    }
+  ],
+  delivery_cities: MAP_DATA_DELIVERY_CITIES,
+  project_cities: MAP_DATA_PROJECT_CITIES
+};
 
 function fmtLen(m) {
   if (!m || m <= 0) return '';
   return m >= 1000 ? (m / 1000).toFixed(1) + ' km' : m + ' m';
 }
 
-// Draw a short, road-shaped polyline near the location instead of a straight radial spoke
 function addRoadSegment(map, lat, lon, km, bearingDeg) {
   var half = (km / 111);
   var rad = (bearingDeg || 0) * Math.PI / 180;
