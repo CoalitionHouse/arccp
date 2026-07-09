@@ -1,19 +1,19 @@
 {
   "supply_radius_km": 350,
   "factories": [
-    {"name": "Amaravati RCC Pipes \u2013 Velvadam", "district": "Krishna", "lat": 16.7438, "lon": 80.6399},
-    {"name": "Visakha RCC Pipes \u2013 Vellanki", "district": "Visakhapatnam", "lat": 17.8837, "lon": 83.0924},
-    {"name": "Visakha RCC Pipes \u2013 Rajula Tallavalasa", "district": "Visakhapatnam", "lat": 17.9150, "lon": 83.3820},
-    {"name": "Visakha RCC Pipes \u2013 Peddabammidi", "district": "Srikakulam", "lat": 18.5965, "lon": 84.1019}
+    {"name": "Amaravati RCC Pipes 3 Velvadam", "district": "Krishna", "lat": 16.7438, "lon": 80.6399},
+    {"name": "Visakha RCC Pipes 3 Vellanki", "district": "Visakhapatnam", "lat": 17.8837, "lon": 83.0924},
+    {"name": "Visakha RCC Pipes 3 Rajula Tallavalasa", "district": "Visakhapatnam", "lat": 17.9150, "lon": 83.3820},
+    {"name": "Visakha RCC Pipes 3 Peddabammidi", "district": "Srikakulam", "lat": 18.5965, "lon": 84.1019}
   ],
   "corridors": [
     {
       "id": "nh5_srikakulam_tuni",
-      "label": "NH-5 Srikakulam\u2013Tuni (~330 km)",
+      "label": "NH-5 Srikakulam3Tuni (~330 km)",
       "client": "NHAI",
       "work": "National Highway NH-5: Cross-drainage culverts & RCC pipe supply along the full corridor from Odisha border (Ichchapuram) to Tuni",
       "cls": "NP3/NP4",
-      "dia_mm": "600\u20131200",
+      "dia_mm": "60031200",
       "length_m": 330000,
       "year": "pre-2010",
       "color": "#1a6ec7",
@@ -52,7 +52,7 @@
       "client": "Gangavaram Port / RITES-SHELADIA JV",
       "work": "Port drainage & NH utility crossings, Visakhapatnam",
       "cls": "NP3/NP4",
-      "dia_mm": "600\u2013800",
+      "dia_mm": "6003800",
       "length_m": 7300,
       "year": 2015,
       "color": "#e07b00",
